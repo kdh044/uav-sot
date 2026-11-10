@@ -56,11 +56,11 @@ const img = (file, w) => {
 const head = [
   new Paragraph({
     alignment: AlignmentType.CENTER, spacing: { after: 120 },
-    children: [new TextRun({ text: '카메라 움직임 보정과 UAV·소형 객체 미세조정을 결합한 경량 ViT 기반 UAV 단일 객체 추적', font: FONT, size: sz(14), bold: true })],
+    children: [new TextRun({ text: '카메라 움직임에 강건한 경량 ViT 기반 드론 단일 객체 추적', font: FONT, size: sz(14), bold: true })],
   }),
   new Paragraph({
     alignment: AlignmentType.CENTER, spacing: { after: 60 },
-    children: [new TextRun({ text: 'Lightweight ViT-based UAV Single Object Tracking with Camera Motion Compensation and UAV/Tiny-Object Fine-tuning', font: FONT, size: sz(10), italics: true })],
+    children: [new TextRun({ text: 'Camera-Motion-Robust Lightweight ViT Tracking for UAVs', font: FONT, size: sz(10), italics: true })],
   }),
   P('김동훈 (전북대학교 AI 로보틱스 연구실)', { align: AlignmentType.CENTER, size: 9, after: 160 }),
   P([B('요약 '), T('경량 ViT 기반 UAV 단일 객체 추적기는 표준 벤치마크에서 AUC 63~65로 포화되었지만, 기체 흔들림과 회전이 큰 실제 비행 영상(BioDrone)에서는 AUC 25~28로 크게 떨어진다. 실패 사례 분석 결과, 표준 벤치마크에서 실패의 약 10%였던 검색 영역 밖 이탈이 실제 비행 영상에서는 30~47%를 차지하였다. 본 논문은 호모그래피 기반 카메라 움직임 보정(CMC)과 UAV·소형 객체 영상을 함께 쓰는 미세조정을 결합한다. ORTrack(CVPR 2025)에 적용한 결과 BioDrone val AUC가 26.6에서 35.7로, 추적 실패는 313회에서 166회로 개선되었고, 극소형 대상(SatSOT) 성능은 유지되었다(38.0). 2.2배 무거운 ViT-B 추적기(30.9)보다도 높다.')], { after: 60 }),
