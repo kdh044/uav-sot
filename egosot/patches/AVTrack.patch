@@ -1,0 +1,910 @@
+diff --git a/experiments/avtrack/deit_tiny_distilled_patch16_224_uavft.yaml b/experiments/avtrack/deit_tiny_distilled_patch16_224_uavft.yaml
+new file mode 100644
+index 0000000..05ca338
+--- /dev/null
++++ b/experiments/avtrack/deit_tiny_distilled_patch16_224_uavft.yaml
+@@ -0,0 +1,73 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    SIZE_EVA: 224
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++    SIZE_EVA: 112
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/avtrack/AVTrack/model/deit_tiny_distilled_patch16_224/AVTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_distilled_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/avtrack/deit_tiny_patch16_224_uavft.yaml b/experiments/avtrack/deit_tiny_patch16_224_uavft.yaml
+new file mode 100644
+index 0000000..242a087
+--- /dev/null
++++ b/experiments/avtrack/deit_tiny_patch16_224_uavft.yaml
+@@ -0,0 +1,78 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++#  TRAIN:
++#    DATASETS_NAME:
++#      - GOT10K_train_full
++#    DATASETS_RATIO:
++#      - 1
++#    SAMPLE_PER_EPOCH: 60000
++
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/avtrack/AVTrack/model/deit_tiny_patch16_224/AVTrack_ep0300.pth.tar
++  IS_DISTILL: False
++  EXTRA_MERGER: False
++  RETURN_INTER: False
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: False
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/lib/__pycache__/__init__.cpython-310.pyc b/lib/__pycache__/__init__.cpython-310.pyc
+index 933ca99..7016b08 100644
+Binary files a/lib/__pycache__/__init__.cpython-310.pyc and b/lib/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/config/__pycache__/__init__.cpython-310.pyc b/lib/config/__pycache__/__init__.cpython-310.pyc
+index 8015e14..36a76c5 100644
+Binary files a/lib/config/__pycache__/__init__.cpython-310.pyc and b/lib/config/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/config/avtrack/__pycache__/config.cpython-310.pyc b/lib/config/avtrack/__pycache__/config.cpython-310.pyc
+index fbfd932..a06eafc 100644
+Binary files a/lib/config/avtrack/__pycache__/config.cpython-310.pyc and b/lib/config/avtrack/__pycache__/config.cpython-310.pyc differ
+diff --git a/lib/models/__pycache__/__init__.cpython-310.pyc b/lib/models/__pycache__/__init__.cpython-310.pyc
+index 26dea36..50a1323 100644
+Binary files a/lib/models/__pycache__/__init__.cpython-310.pyc and b/lib/models/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/__init__.cpython-310.pyc b/lib/models/avtrack/__pycache__/__init__.cpython-310.pyc
+index 34ebdf5..bd61cbd 100644
+Binary files a/lib/models/avtrack/__pycache__/__init__.cpython-310.pyc and b/lib/models/avtrack/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/avtrack.cpython-310.pyc b/lib/models/avtrack/__pycache__/avtrack.cpython-310.pyc
+index ffaa221..e7ad1c7 100644
+Binary files a/lib/models/avtrack/__pycache__/avtrack.cpython-310.pyc and b/lib/models/avtrack/__pycache__/avtrack.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/deit.cpython-310.pyc b/lib/models/avtrack/__pycache__/deit.cpython-310.pyc
+index 4b7d032..22f50a2 100644
+Binary files a/lib/models/avtrack/__pycache__/deit.cpython-310.pyc and b/lib/models/avtrack/__pycache__/deit.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/eva.cpython-310.pyc b/lib/models/avtrack/__pycache__/eva.cpython-310.pyc
+index fb958d3..ef5aabc 100644
+Binary files a/lib/models/avtrack/__pycache__/eva.cpython-310.pyc and b/lib/models/avtrack/__pycache__/eva.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/loss_functions.cpython-310.pyc b/lib/models/avtrack/__pycache__/loss_functions.cpython-310.pyc
+index f41d40c..6c5eb8d 100644
+Binary files a/lib/models/avtrack/__pycache__/loss_functions.cpython-310.pyc and b/lib/models/avtrack/__pycache__/loss_functions.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/statistics_network.cpython-310.pyc b/lib/models/avtrack/__pycache__/statistics_network.cpython-310.pyc
+index 8263619..42d7145 100644
+Binary files a/lib/models/avtrack/__pycache__/statistics_network.cpython-310.pyc and b/lib/models/avtrack/__pycache__/statistics_network.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/utils.cpython-310.pyc b/lib/models/avtrack/__pycache__/utils.cpython-310.pyc
+index 55d8b4f..c9d9556 100644
+Binary files a/lib/models/avtrack/__pycache__/utils.cpython-310.pyc and b/lib/models/avtrack/__pycache__/utils.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/__pycache__/vision_transformer.cpython-310.pyc b/lib/models/avtrack/__pycache__/vision_transformer.cpython-310.pyc
+index a038e55..b2c778e 100644
+Binary files a/lib/models/avtrack/__pycache__/vision_transformer.cpython-310.pyc and b/lib/models/avtrack/__pycache__/vision_transformer.cpython-310.pyc differ
+diff --git a/lib/models/avtrack/avtrack.py b/lib/models/avtrack/avtrack.py
+index a842433..549ace1 100644
+--- a/lib/models/avtrack/avtrack.py
++++ b/lib/models/avtrack/avtrack.py
+@@ -239,7 +239,7 @@ def build_avtrack(cfg, training=True):
+     )
+ 
+     if 'AVTrack' in cfg.MODEL.PRETRAIN_FILE and training:
+-        checkpoint = torch.load(cfg.MODEL.PRETRAIN_FILE, map_location="cpu")
++        checkpoint = torch.load(cfg.MODEL.PRETRAIN_FILE, map_location="cpu", weights_only=False)
+         missing_keys, unexpected_keys = model.load_state_dict(checkpoint["net"], strict=False)
+         print('Load pretrained model from: ' + cfg.MODEL.PRETRAIN_FILE)
+ 
+diff --git a/lib/models/layers/__pycache__/__init__.cpython-310.pyc b/lib/models/layers/__pycache__/__init__.cpython-310.pyc
+index 86595e3..d8bfd4b 100644
+Binary files a/lib/models/layers/__pycache__/__init__.cpython-310.pyc and b/lib/models/layers/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/models/layers/__pycache__/frozen_bn.cpython-310.pyc b/lib/models/layers/__pycache__/frozen_bn.cpython-310.pyc
+index 8aed337..49e53eb 100644
+Binary files a/lib/models/layers/__pycache__/frozen_bn.cpython-310.pyc and b/lib/models/layers/__pycache__/frozen_bn.cpython-310.pyc differ
+diff --git a/lib/models/layers/__pycache__/head.cpython-310.pyc b/lib/models/layers/__pycache__/head.cpython-310.pyc
+index c3d2e7b..b297f30 100644
+Binary files a/lib/models/layers/__pycache__/head.cpython-310.pyc and b/lib/models/layers/__pycache__/head.cpython-310.pyc differ
+diff --git a/lib/models/layers/__pycache__/patch_embed.cpython-310.pyc b/lib/models/layers/__pycache__/patch_embed.cpython-310.pyc
+index 9519d67..7ad9a8c 100644
+Binary files a/lib/models/layers/__pycache__/patch_embed.cpython-310.pyc and b/lib/models/layers/__pycache__/patch_embed.cpython-310.pyc differ
+diff --git a/lib/test/evaluation/biodronedataset.py b/lib/test/evaluation/biodronedataset.py
+new file mode 100644
+index 0000000..1d994c4
+--- /dev/null
++++ b/lib/test/evaluation/biodronedataset.py
+@@ -0,0 +1,36 @@
++import numpy as np
++from lib.test.evaluation.data import Sequence, BaseDataset, SequenceList
++from lib.test.utils.load_text import load_text
++import os
++
++
++class BioDroneDataset(BaseDataset):
++    """ GBioDrone dataset.
++    """
++    def __init__(self):
++        super().__init__()
++
++        self.base_path = os.path.join(self.env_settings.biodrone_path)
++        self.sequence_list = self._get_sequence_list()
++
++    def get_sequence_list(self):
++        return SequenceList([self._construct_sequence(s) for s in self.sequence_list])
++
++    def _construct_sequence(self, sequence_name):
++        anno_path = '{}/{}/{}.txt'.format(self.base_path, 'anno',sequence_name)
++
++        ground_truth_rect = load_text(str(anno_path), delimiter=',', dtype=np.float64)
++
++        frames_path = '{}/{}/{}'.format(self.base_path, 'sequences',sequence_name)
++        frame_list = [frame for frame in os.listdir(frames_path) if frame.endswith(".jpg")]
++        frame_list.sort(key=lambda f: int(f[3:-4]))
++        frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
++        return Sequence(sequence_name, frames_list, 'biodrone', ground_truth_rect.reshape(-1, 4))
++
++    def __len__(self):
++        return len(self.sequence_list)
++
++    def _get_sequence_list(self):
++        seq_path = os.path.join(self.base_path,'sequences')
++        seqs = os.listdir(seq_path)
++        return seqs
+diff --git a/lib/test/evaluation/datasets.py b/lib/test/evaluation/datasets.py
+index 889bf35..3fa87d3 100644
+--- a/lib/test/evaluation/datasets.py
++++ b/lib/test/evaluation/datasets.py
+@@ -11,6 +11,7 @@ dataset_dict = dict(
+     nfs=DatasetInfo(module=pt % "nfs", class_name="NFSDataset", kwargs=dict()),
+     uav123_10fps=DatasetInfo(module=pt % "uav123_10fps", class_name="UAV123_10fpsDataset", kwargs=dict()),
+     uav123=DatasetInfo(module=pt % "uav123", class_name="UAV123Dataset", kwargs=dict()),
++    biodrone=DatasetInfo(module=pt % "biodrone", class_name="BioDroneDataset", kwargs=dict()),
+     visdrone2018=DatasetInfo(module=pt % "visdrone2018", class_name="VISDRONE2018Dataset", kwargs=dict()),
+     uavdt=DatasetInfo(module=pt % "uavdt", class_name="UAVDTDataset", kwargs=dict()),
+     dtb70=DatasetInfo(module=pt % "dtb70", class_name="DTB70Dataset", kwargs=dict()),
+diff --git a/lib/test/evaluation/local.py b/lib/test/evaluation/local.py
+index 87de829..6f8b35e 100644
+--- a/lib/test/evaluation/local.py
++++ b/lib/test/evaluation/local.py
+@@ -6,37 +6,38 @@ def local_env_settings():
+     # Set your local paths here.
+ 
+     settings.davis_dir = ''
+-    settings.dtb70_path = '/home/lsw/AVTrack/data/dtb70_path'
+-    settings.got10k_lmdb_path = '/home/lsw/AVTrack/data/got10k_lmdb'
+-    settings.got10k_path = '/home/lsw/AVTrack/data/got10k'
++    settings.dtb70_path = '/home/airlab/user/kdh/datasets/sot/dtb70'
++    settings.got10k_lmdb_path = '/home/airlab/user/kdh/datasets/sot/got10k_lmdb'
++    settings.got10k_path = '/home/airlab/user/kdh/datasets/sot/got10k'
+     settings.got_packed_results_path = ''
+     settings.got_reports_path = ''
+-    settings.itb_path = '/home/lsw/AVTrack/data/itb'
+-    settings.lasot_extension_subset_path_path = '/home/lsw/AVTrack/data/lasot_extension_subset'
+-    settings.lasot_lmdb_path = '/home/lsw/AVTrack/data/lasot_lmdb'
+-    settings.lasot_path = '/home/lsw/AVTrack/data/lasot'
+-    settings.network_path = '/home/lsw/AVTrack/output/test/networks'    # Where tracking networks are stored.
+-    settings.nfs_path = '/home/lsw/AVTrack/data/nfs'
+-    settings.otb_path = '/home/lsw/AVTrack/data/otb'
+-    settings.prj_dir = '/home/lsw/AVTrack'
+-    settings.result_plot_path = '/home/lsw/AVTrack/output/test/result_plots'
+-    settings.results_path = '/home/lsw/AVTrack/output/test/tracking_results'    # Where to store tracking results
+-    settings.save_dir = '/home/lsw/AVTrack/output'
+-    settings.segmentation_path = '/home/lsw/AVTrack/output/test/segmentation_results'
+-    settings.tc128_path = '/home/lsw/AVTrack/data/TC128'
++    settings.itb_path = '/home/airlab/user/kdh/datasets/sot/itb'
++    settings.lasot_extension_subset_path_path = '/home/airlab/user/kdh/datasets/sot/lasot_extension_subset'
++    settings.lasot_lmdb_path = '/home/airlab/user/kdh/datasets/sot/lasot_lmdb'
++    settings.lasot_path = '/home/airlab/user/kdh/datasets/sot/lasot'
++    settings.network_path = '/home/airlab/user/kdh/SOT/AVTrack/output/test/networks'    # Where tracking networks are stored.
++    settings.nfs_path = '/home/airlab/user/kdh/datasets/sot/nfs'
++    settings.otb_path = '/home/airlab/user/kdh/datasets/sot/otb'
++    settings.prj_dir = '/home/airlab/user/kdh/SOT/AVTrack'
++    settings.result_plot_path = '/home/airlab/user/kdh/SOT/AVTrack/output/test/result_plots'
++    settings.results_path = '/home/airlab/user/kdh/SOT/AVTrack/output/test/tracking_results'    # Where to store tracking results
++    settings.save_dir = '/home/airlab/user/kdh/SOT/AVTrack/output'
++    settings.segmentation_path = '/home/airlab/user/kdh/SOT/AVTrack/output/test/segmentation_results'
++    settings.tc128_path = '/home/airlab/user/kdh/datasets/sot/TC128'
+     settings.tn_packed_results_path = ''
+-    settings.tnl2k_path = '/home/lsw/AVTrack/data/tnl2k'
++    settings.tnl2k_path = '/home/airlab/user/kdh/datasets/sot/tnl2k'
+     settings.tpl_path = ''
+-    settings.trackingnet_path = '/home/lsw/AVTrack/data/trackingnet'
+-    settings.uav123_10fps_path = '/home/lsw/AVTrack/data/uav123_10fps_path'
+-    settings.uav123_path = '/home/lsw/AVTrack/data/uav123_path'
+-    settings.uav_path = '/home/lsw/AVTrack/data/uav'
+-    settings.uavdt_path = '/home/lsw/AVTrack/data/uavdt_path'
+-    settings.visdrone2018_path = '/home/lsw/AVTrack/data/visdrone2018_path'
+-    settings.vot18_path = '/home/lsw/AVTrack/data/vot2018'
+-    settings.vot22_path = '/home/lsw/AVTrack/data/vot2022'
+-    settings.vot_path = '/home/lsw/AVTrack/data/VOT2019'
++    settings.trackingnet_path = '/home/airlab/user/kdh/datasets/sot/trackingnet'
++    settings.uav123_10fps_path = '/home/airlab/user/kdh/datasets/sot/uav123/UAV123_10fps'
++    settings.uav123_path = '/home/airlab/user/kdh/datasets/sot/uav123'
++    settings.uav_path = '/home/airlab/user/kdh/datasets/sot/uav123'
++    settings.uavdt_path = '/home/airlab/user/kdh/datasets/sot/uavdt'
++    settings.visdrone2018_path = '/home/airlab/user/kdh/datasets/sot/visdrone2018'
++    settings.vot18_path = '/home/airlab/user/kdh/datasets/sot/vot2018'
++    settings.vot22_path = '/home/airlab/user/kdh/datasets/sot/vot2022'
++    settings.vot_path = '/home/airlab/user/kdh/datasets/sot/VOT2019'
+     settings.youtubevos_dir = ''
+ 
++    settings.biodrone_path = '/home/airlab/user/kdh/datasets/sot/biodrone_val'
+     return settings
+ 
+diff --git a/lib/test/tracker/avtrack.py b/lib/test/tracker/avtrack.py
+index fe5709e..bdcb037 100644
+--- a/lib/test/tracker/avtrack.py
++++ b/lib/test/tracker/avtrack.py
+@@ -10,6 +10,7 @@ from lib.train.data.processing_utils import sample_target
+ # for debug
+ import cv2
+ import os
++from lib.test.tracker.motion_prior import MotionPrior
+ 
+ from lib.test.tracker.data_utils import Preprocessor
+ from lib.utils.box_ops import clip_box
+@@ -20,7 +21,7 @@ class AVTrack(BaseTracker):
+     def __init__(self, params, dataset_name):
+         super(AVTrack, self).__init__(params)
+         network = build_avtrack(params.cfg, training=False)
+-        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu')['net'], strict=True)
++        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu', weights_only=False)['net'], strict=True)
+         self.cfg = params.cfg
+         self.network = network.cuda()
+         self.network.eval()
+@@ -59,6 +60,11 @@ class AVTrack(BaseTracker):
+ 
+         # save states
+         self.state = info['init_bbox']
++        # 실험: CMC (env SOT_MOTION=cmc)
++        mode = os.environ.get('SOT_MOTION')
++        self.motion = MotionPrior(mode) if mode else None
++        if self.motion:
++            self.motion.init(image, info['init_bbox'])
+         self.frame_id = 0
+         if self.save_all_boxes:
+             '''save all predicted boxes'''
+@@ -68,6 +74,8 @@ class AVTrack(BaseTracker):
+     def track(self, image, info: dict = None):
+         H, W, _ = image.shape
+         self.frame_id += 1
++        if getattr(self, 'motion', None):
++            self.state = self.motion.predict(image, self.state)
+         x_patch_arr, resize_factor, x_amask_arr = sample_target(image, self.state, self.params.search_factor,
+                                                                 output_sz=self.params.search_size)  # (x1, y1, w, h)
+         search = self.preprocessor.process(x_patch_arr, x_amask_arr)
+@@ -89,6 +97,8 @@ class AVTrack(BaseTracker):
+             dim=0) * self.params.search_size / resize_factor).tolist()  # (cx, cy, w, h) [0,1]
+         # get the final box result
+         self.state = clip_box(self.map_box_back(pred_box, resize_factor), H, W, margin=10)
++        if getattr(self, 'motion', None):
++            self.motion.update(self.state)
+ 
+         # for debug
+         if self.debug:
+diff --git a/lib/test/tracker/motion_prior.py b/lib/test/tracker/motion_prior.py
+new file mode 100644
+index 0000000..3408329
+--- /dev/null
++++ b/lib/test/tracker/motion_prior.py
+@@ -0,0 +1,100 @@
++"""검색 영역 중심 사전 예측 (실험용, env SOT_MOTION 으로만 켜짐).
++
++- cmc : 이전→현재 프레임 카메라 움직임을 호모그래피로 추정해 이전 박스 중심을 옮김
++        (축소 회색영상, Shi-Tomasi 코너 + LK optical flow + RANSAC, 대상 박스 주변 마스킹)
++- cv  : 대상의 등속 운동 (카메라 보정 후 좌표계에서 직전 프레임 변위를 그대로 더함)
++- cmc+cv : 둘 다
++"""
++import os
++import cv2
++import numpy as np
++
++
++class MotionPrior:
++    def __init__(self, mode, work_width=640):
++        self.use_cmc = 'cmc' in mode
++        self.use_cv = 'cv' in mode
++        self.work_width = work_width
++        self.prev_gray = None
++        self.scale = 1.0
++        self.vel = np.zeros(2)      # 보정 좌표계에서 대상 중심 속도 (px/frame, 원본 해상도)
++        self.prev_center = None     # 직전 프레임 최종 추정 중심
++        self.cum_angle = 0.0        # 첫 프레임 대비 누적 카메라 회전 (rad)
++        self.H = None
++
++    def _gray(self, image):
++        h, w = image.shape[:2]
++        self.scale = min(1.0, self.work_width / w)
++        g = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
++        if self.scale < 1.0:
++            g = cv2.resize(g, (int(w * self.scale), int(h * self.scale)), interpolation=cv2.INTER_AREA)
++        return g
++
++    def init(self, image, box):
++        self.prev_gray = self._gray(image)
++        self.prev_center = np.array([box[0] + box[2] / 2, box[1] + box[3] / 2])
++        self.vel[:] = 0
++        self.cum_angle = 0.0
++
++    def _homography(self, gray, box):
++        s = self.scale
++        mask = np.full(self.prev_gray.shape, 255, np.uint8)
++        x, y, w, h = [v * s for v in box]
++        cv2.rectangle(mask, (int(x - w), int(y - h)), (int(x + 2 * w), int(y + 2 * h)), 0, -1)
++        # 빠른 모드(env SOT_CMC_FAST=1): 직전 프레임에서 추적된 inlier 점을 재사용, 부족할 때만 재검출
++        fast = bool(os.environ.get('SOT_CMC_FAST'))
++        p0 = None
++        if fast and getattr(self, 'pts', None) is not None and len(self.pts) >= 80:
++            p0 = self.pts
++        if p0 is None:
++            p0 = cv2.goodFeaturesToTrack(self.prev_gray, maxCorners=200 if fast else 400, qualityLevel=0.01,
++                                         minDistance=8, mask=mask)
++        if p0 is None or len(p0) < 12:
++            self.pts = None
++            return None
++        win = (15, 15) if fast else (21, 21)
++        p1, st, _ = cv2.calcOpticalFlowPyrLK(self.prev_gray, gray, p0, None, winSize=win, maxLevel=3)
++        ok = st.ravel() == 1
++        if ok.sum() < 12:
++            self.pts = None
++            return None
++        Hm, inl = cv2.findHomography(p0[ok], p1[ok], cv2.RANSAC, 3.0)
++        if Hm is None or inl.sum() < 10:
++            self.pts = None
++            return None
++        if fast:  # 다음 프레임용: 대상 주변 제외한 inlier 점
++            q = p1[ok][inl.ravel() == 1].reshape(-1, 2)
++            keep = ~((q[:, 0] > x - w) & (q[:, 0] < x + 2 * w) & (q[:, 1] > y - h) & (q[:, 1] < y + 2 * h))
++            self.pts = q[keep].reshape(-1, 1, 2).astype(np.float32)
++        S = np.diag([s, s, 1.0])
++        return np.linalg.inv(S) @ Hm @ S  # 원본 해상도 좌표계
++
++    def predict(self, image, box):
++        """현재 프레임에서 검색할 박스(x,y,w,h) 반환. box 는 직전 프레임 추정."""
++        gray = self._gray(image)
++        H_img, W_img = image.shape[:2]
++        if not np.all(np.isfinite(box)) or box[2] > W_img or box[3] > H_img:  # 박스 폭주 방지
++            box = [box[0], box[1], min(max(box[2], 1), W_img), min(max(box[3], 1), H_img)]
++        c = np.array([box[0] + box[2] / 2, box[1] + box[3] / 2])
++        self.H = None
++        if self.use_cmc:
++            Hm = self._homography(gray, box)
++            if Hm is not None:
++                p = Hm @ np.array([c[0], c[1], 1.0])
++                c = p[:2] / p[2]
++                self.H = Hm
++                self.cum_angle += np.arctan2(Hm[1, 0], Hm[0, 0])
++        if self.use_cv:
++            c = c + self.vel
++        # 퇴화 호모그래피로 중심이 화면 밖 멀리 튀면 화면 안으로 제한 (패딩 폭주 방지)
++        c = np.array([min(max(c[0], 0.0), W_img - 1.0), min(max(c[1], 0.0), H_img - 1.0)])
++        self.prev_gray = gray
++        self.cmc_center = c - (self.vel if self.use_cv else 0)  # 카메라 보정만 한 직전 중심
++        return [c[0] - box[2] / 2, c[1] - box[3] / 2, box[2], box[3]]
++
++    def update(self, new_box):
++        nc = np.array([new_box[0] + new_box[2] / 2, new_box[1] + new_box[3] / 2])
++        if self.use_cv:
++            v = nc - self.cmc_center
++            self.vel = 0.5 * self.vel + 0.5 * v   # 지수평활 속도
++        self.prev_center = nc
+diff --git a/lib/train/__pycache__/__init__.cpython-310.pyc b/lib/train/__pycache__/__init__.cpython-310.pyc
+index d8fc7a2..7cede4e 100644
+Binary files a/lib/train/__pycache__/__init__.cpython-310.pyc and b/lib/train/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/__pycache__/_init_paths.cpython-310.pyc b/lib/train/__pycache__/_init_paths.cpython-310.pyc
+index 4a8bb07..c76b2a3 100644
+Binary files a/lib/train/__pycache__/_init_paths.cpython-310.pyc and b/lib/train/__pycache__/_init_paths.cpython-310.pyc differ
+diff --git a/lib/train/__pycache__/base_functions.cpython-310.pyc b/lib/train/__pycache__/base_functions.cpython-310.pyc
+index 1d13e7a..5bf9d20 100644
+Binary files a/lib/train/__pycache__/base_functions.cpython-310.pyc and b/lib/train/__pycache__/base_functions.cpython-310.pyc differ
+diff --git a/lib/train/__pycache__/train_script.cpython-310.pyc b/lib/train/__pycache__/train_script.cpython-310.pyc
+index 04b964f..2377737 100644
+Binary files a/lib/train/__pycache__/train_script.cpython-310.pyc and b/lib/train/__pycache__/train_script.cpython-310.pyc differ
+diff --git a/lib/train/actors/__pycache__/__init__.cpython-310.pyc b/lib/train/actors/__pycache__/__init__.cpython-310.pyc
+index e3b9c8f..78a211b 100644
+Binary files a/lib/train/actors/__pycache__/__init__.cpython-310.pyc and b/lib/train/actors/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/actors/__pycache__/avtrack.cpython-310.pyc b/lib/train/actors/__pycache__/avtrack.cpython-310.pyc
+index f084269..fb3a703 100644
+Binary files a/lib/train/actors/__pycache__/avtrack.cpython-310.pyc and b/lib/train/actors/__pycache__/avtrack.cpython-310.pyc differ
+diff --git a/lib/train/actors/__pycache__/base_actor.cpython-310.pyc b/lib/train/actors/__pycache__/base_actor.cpython-310.pyc
+index 700008e..b1a7187 100644
+Binary files a/lib/train/actors/__pycache__/base_actor.cpython-310.pyc and b/lib/train/actors/__pycache__/base_actor.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/__init__.cpython-310.pyc b/lib/train/admin/__pycache__/__init__.cpython-310.pyc
+index 962e0f3..3bd040a 100644
+Binary files a/lib/train/admin/__pycache__/__init__.cpython-310.pyc and b/lib/train/admin/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/environment.cpython-310.pyc b/lib/train/admin/__pycache__/environment.cpython-310.pyc
+index 558517d..5c0eba3 100644
+Binary files a/lib/train/admin/__pycache__/environment.cpython-310.pyc and b/lib/train/admin/__pycache__/environment.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/local.cpython-310.pyc b/lib/train/admin/__pycache__/local.cpython-310.pyc
+index 1254602..2e0eafd 100644
+Binary files a/lib/train/admin/__pycache__/local.cpython-310.pyc and b/lib/train/admin/__pycache__/local.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/multigpu.cpython-310.pyc b/lib/train/admin/__pycache__/multigpu.cpython-310.pyc
+index cef586b..f05592f 100644
+Binary files a/lib/train/admin/__pycache__/multigpu.cpython-310.pyc and b/lib/train/admin/__pycache__/multigpu.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/settings.cpython-310.pyc b/lib/train/admin/__pycache__/settings.cpython-310.pyc
+index 61b5097..4014336 100644
+Binary files a/lib/train/admin/__pycache__/settings.cpython-310.pyc and b/lib/train/admin/__pycache__/settings.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/stats.cpython-310.pyc b/lib/train/admin/__pycache__/stats.cpython-310.pyc
+index bb74dbd..e1a8469 100644
+Binary files a/lib/train/admin/__pycache__/stats.cpython-310.pyc and b/lib/train/admin/__pycache__/stats.cpython-310.pyc differ
+diff --git a/lib/train/admin/__pycache__/tensorboard.cpython-310.pyc b/lib/train/admin/__pycache__/tensorboard.cpython-310.pyc
+index de587b4..a783eda 100644
+Binary files a/lib/train/admin/__pycache__/tensorboard.cpython-310.pyc and b/lib/train/admin/__pycache__/tensorboard.cpython-310.pyc differ
+diff --git a/lib/train/admin/local.py b/lib/train/admin/local.py
+index d82b7be..1ed307e 100644
+--- a/lib/train/admin/local.py
++++ b/lib/train/admin/local.py
+@@ -1,24 +1,28 @@
+ class EnvironmentSettings:
+     def __init__(self):
+-        self.workspace_dir = '/home/lsw/AVTrack'    # Base directory for saving network checkpoints.
+-        self.tensorboard_dir = '/home/lsw/AVTrack/tensorboard'    # Directory for tensorboard files.
+-        self.pretrained_networks = '/home/lsw/AVTrack/pretrained_networks'
+-        self.lasot_dir = '/home/lsw/AVTrack/data/lasot'
+-        self.got10k_dir = '/home/lsw/AVTrack/data/got10k/train'
+-        self.got10k_val_dir = '/home/lsw/AVTrack/data/got10k/val'
+-        self.lasot_lmdb_dir = '/home/lsw/AVTrack/data/lasot_lmdb'
+-        self.got10k_lmdb_dir = '/home/lsw/AVTrack/data/got10k_lmdb'
+-        self.trackingnet_dir = '/home/lsw/AVTrack/data/trackingnet'
+-        self.trackingnet_lmdb_dir = '/home/lsw/AVTrack/data/trackingnet_lmdb'
+-        self.coco_dir = '/home/lsw/AVTrack/data/coco'
+-        self.coco_lmdb_dir = '/home/lsw/AVTrack/data/coco_lmdb'
++        self.workspace_dir = '/home/airlab/user/kdh/SOT/AVTrack'    # Base directory for saving network checkpoints.
++        self.tensorboard_dir = '/home/airlab/user/kdh/SOT/AVTrack/tensorboard'    # Directory for tensorboard files.
++        self.pretrained_networks = '/home/airlab/user/kdh/SOT/AVTrack/pretrained_networks'
++        self.lasot_dir = '/home/airlab/user/kdh/datasets/sot/lasot'
++        self.got10k_dir = '/home/airlab/user/kdh/datasets/sot/got10k/train'
++        self.got10k_val_dir = '/home/airlab/user/kdh/datasets/sot/got10k/val'
++        self.lasot_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/lasot_lmdb'
++        self.got10k_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/got10k_lmdb'
++        self.trackingnet_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet'
++        self.trackingnet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet_lmdb'
++        self.coco_dir = '/home/airlab/user/kdh/datasets/sot/coco'
++        self.coco_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/coco_lmdb'
+         self.lvis_dir = ''
+         self.sbd_dir = ''
+-        self.imagenet_dir = '/home/lsw/AVTrack/data/vid'
+-        self.imagenet_lmdb_dir = '/home/lsw/AVTrack/data/vid_lmdb'
++        self.imagenet_dir = '/home/airlab/user/kdh/datasets/sot/vid'
++        self.imagenet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/vid_lmdb'
+         self.imagenetdet_dir = ''
+         self.ecssd_dir = ''
+         self.hkuis_dir = ''
+         self.msra10k_dir = ''
+         self.davis_dir = ''
+         self.youtubevos_dir = ''
++        self.biodrone_train_dir = '/home/airlab/user/kdh/datasets/sot/biodrone_train'
++        self.biodrone_exclude_dir = '/home/airlab/user/kdh/datasets/sot/biodrone_tune'
++        self.visdrone_sot_train_dir = '/home/airlab/user/kdh/datasets/sot/visdrone_sot_trainval/train'
++        self.visdrone_sot_val_dir = '/home/airlab/user/kdh/datasets/sot/visdrone_sot_trainval/val'
+diff --git a/lib/train/base_functions.py b/lib/train/base_functions.py
+index a30481e..a5d3751 100644
+--- a/lib/train/base_functions.py
++++ b/lib/train/base_functions.py
+@@ -1,7 +1,7 @@
+ import torch
+ from torch.utils.data.distributed import DistributedSampler
+ # datasets related
+-from lib.train.dataset import Lasot, Got10k, MSCOCOSeq, ImagenetVID, TrackingNet
++from lib.train.dataset import BioDroneTrain, VisDroneSOTTrain, Lasot, Got10k, MSCOCOSeq, ImagenetVID, TrackingNet
+ from lib.train.dataset import Lasot_lmdb, Got10k_lmdb, MSCOCOSeq_lmdb, ImagenetVID_lmdb, TrackingNet_lmdb
+ from lib.train.data import sampler, opencv_loader, processing, LTRLoader
+ import lib.train.data.transforms as tfm
+@@ -33,7 +33,7 @@ def names2datasets(name_list: list, settings, image_loader):
+     datasets = []
+     for name in name_list:
+         assert name in ["LASOT", "GOT10K_vottrain", "GOT10K_votval", "GOT10K_train_full", "GOT10K_official_val",
+-                        "COCO17", "VID", "TRACKINGNET"]
++                        "COCO17", "VID", "TRACKINGNET", "BIODRONE_train", "VISDRONE_SOT_train", "VISDRONE_SOT_val"]
+         if name == "LASOT":
+             if settings.use_lmdb:
+                 print("Building lasot dataset from lmdb")
+@@ -82,6 +82,13 @@ def names2datasets(name_list: list, settings, image_loader):
+             else:
+                 # raise ValueError("NOW WE CAN ONLY USE TRACKINGNET FROM LMDB")
+                 datasets.append(TrackingNet(settings.env.trackingnet_dir, image_loader=image_loader))
++        if name == "BIODRONE_train":
++            datasets.append(BioDroneTrain(settings.env.biodrone_train_dir, exclude_dir=settings.env.biodrone_exclude_dir,
++                                          image_loader=image_loader))
++        if name == "VISDRONE_SOT_train":
++            datasets.append(VisDroneSOTTrain(settings.env.visdrone_sot_train_dir, image_loader=image_loader))
++        if name == "VISDRONE_SOT_val":
++            datasets.append(VisDroneSOTTrain(settings.env.visdrone_sot_val_dir, image_loader=image_loader))
+     return datasets
+ 
+ 
+diff --git a/lib/train/data/__pycache__/__init__.cpython-310.pyc b/lib/train/data/__pycache__/__init__.cpython-310.pyc
+index b6ff50c..37ad103 100644
+Binary files a/lib/train/data/__pycache__/__init__.cpython-310.pyc and b/lib/train/data/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/image_loader.cpython-310.pyc b/lib/train/data/__pycache__/image_loader.cpython-310.pyc
+index 084f54a..b7d7a9f 100644
+Binary files a/lib/train/data/__pycache__/image_loader.cpython-310.pyc and b/lib/train/data/__pycache__/image_loader.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/loader.cpython-310.pyc b/lib/train/data/__pycache__/loader.cpython-310.pyc
+index ef3c248..be6a64c 100644
+Binary files a/lib/train/data/__pycache__/loader.cpython-310.pyc and b/lib/train/data/__pycache__/loader.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/processing.cpython-310.pyc b/lib/train/data/__pycache__/processing.cpython-310.pyc
+index 07ad104..339cb95 100644
+Binary files a/lib/train/data/__pycache__/processing.cpython-310.pyc and b/lib/train/data/__pycache__/processing.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/processing_utils.cpython-310.pyc b/lib/train/data/__pycache__/processing_utils.cpython-310.pyc
+index c9beae5..b790059 100644
+Binary files a/lib/train/data/__pycache__/processing_utils.cpython-310.pyc and b/lib/train/data/__pycache__/processing_utils.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/sampler.cpython-310.pyc b/lib/train/data/__pycache__/sampler.cpython-310.pyc
+index ce16e30..aa22297 100644
+Binary files a/lib/train/data/__pycache__/sampler.cpython-310.pyc and b/lib/train/data/__pycache__/sampler.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/transforms.cpython-310.pyc b/lib/train/data/__pycache__/transforms.cpython-310.pyc
+index 2b65e8b..b0744d7 100644
+Binary files a/lib/train/data/__pycache__/transforms.cpython-310.pyc and b/lib/train/data/__pycache__/transforms.cpython-310.pyc differ
+diff --git a/lib/train/data/__pycache__/wandb_logger.cpython-310.pyc b/lib/train/data/__pycache__/wandb_logger.cpython-310.pyc
+index b061a62..4af15e6 100644
+Binary files a/lib/train/data/__pycache__/wandb_logger.cpython-310.pyc and b/lib/train/data/__pycache__/wandb_logger.cpython-310.pyc differ
+diff --git a/lib/train/data/loader.py b/lib/train/data/loader.py
+index f3efde1..35376df 100644
+--- a/lib/train/data/loader.py
++++ b/lib/train/data/loader.py
+@@ -2,6 +2,7 @@ import torch
+ import torch.utils.data.dataloader
+ import importlib
+ import collections
++import collections.abc
+ # from torch._six import string_classes
+ string_classes = str
+ from lib.utils import TensorDict, TensorList
+@@ -9,7 +10,7 @@ from lib.utils import TensorDict, TensorList
+ if float(torch.__version__[:3]) >= 1.9 or len('.'.join((torch.__version__).split('.')[0:2])) > 3:
+     int_classes = int
+ else:
+-    from torch._six import int_classes
++    int_classes = int
+ 
+ 
+ def _check_use_shared_memory():
+@@ -58,12 +59,12 @@ def ltr_collate(batch):
+         return batch
+     elif isinstance(batch[0], TensorDict):
+         return TensorDict({key: ltr_collate([d[key] for d in batch]) for key in batch[0]})
+-    elif isinstance(batch[0], collections.Mapping):
++    elif isinstance(batch[0], collections.abc.Mapping):
+         return {key: ltr_collate([d[key] for d in batch]) for key in batch[0]}
+     elif isinstance(batch[0], TensorList):
+         transposed = zip(*batch)
+         return TensorList([ltr_collate(samples) for samples in transposed])
+-    elif isinstance(batch[0], collections.Sequence):
++    elif isinstance(batch[0], collections.abc.Sequence):
+         transposed = zip(*batch)
+         return [ltr_collate(samples) for samples in transposed]
+     elif batch[0] is None:
+@@ -109,12 +110,12 @@ def ltr_collate_stack1(batch):
+         return batch
+     elif isinstance(batch[0], TensorDict):
+         return TensorDict({key: ltr_collate_stack1([d[key] for d in batch]) for key in batch[0]})
+-    elif isinstance(batch[0], collections.Mapping):
++    elif isinstance(batch[0], collections.abc.Mapping):
+         return {key: ltr_collate_stack1([d[key] for d in batch]) for key in batch[0]}
+     elif isinstance(batch[0], TensorList):
+         transposed = zip(*batch)
+         return TensorList([ltr_collate_stack1(samples) for samples in transposed])
+-    elif isinstance(batch[0], collections.Sequence):
++    elif isinstance(batch[0], collections.abc.Sequence):
+         transposed = zip(*batch)
+         return [ltr_collate_stack1(samples) for samples in transposed]
+     elif batch[0] is None:
+diff --git a/lib/train/dataset/__init__.py b/lib/train/dataset/__init__.py
+index 87ca906..b1e3f35 100644
+--- a/lib/train/dataset/__init__.py
++++ b/lib/train/dataset/__init__.py
+@@ -9,3 +9,4 @@ from .lasot_lmdb import Lasot_lmdb
+ from .imagenetvid_lmdb import ImagenetVID_lmdb
+ from .coco_seq_lmdb import MSCOCOSeq_lmdb
+ from .tracking_net_lmdb import TrackingNet_lmdb
++from .uav_sot import BioDroneTrain, VisDroneSOTTrain
+diff --git a/lib/train/dataset/__pycache__/COCO_tool.cpython-310.pyc b/lib/train/dataset/__pycache__/COCO_tool.cpython-310.pyc
+index 8c95f47..c3e1b90 100644
+Binary files a/lib/train/dataset/__pycache__/COCO_tool.cpython-310.pyc and b/lib/train/dataset/__pycache__/COCO_tool.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/__init__.cpython-310.pyc b/lib/train/dataset/__pycache__/__init__.cpython-310.pyc
+index cf09a42..4bc2c1f 100644
+Binary files a/lib/train/dataset/__pycache__/__init__.cpython-310.pyc and b/lib/train/dataset/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/base_image_dataset.cpython-310.pyc b/lib/train/dataset/__pycache__/base_image_dataset.cpython-310.pyc
+index 2384126..7c6c762 100644
+Binary files a/lib/train/dataset/__pycache__/base_image_dataset.cpython-310.pyc and b/lib/train/dataset/__pycache__/base_image_dataset.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/base_video_dataset.cpython-310.pyc b/lib/train/dataset/__pycache__/base_video_dataset.cpython-310.pyc
+index ff98bf1..7e1d9d9 100644
+Binary files a/lib/train/dataset/__pycache__/base_video_dataset.cpython-310.pyc and b/lib/train/dataset/__pycache__/base_video_dataset.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/coco.cpython-310.pyc b/lib/train/dataset/__pycache__/coco.cpython-310.pyc
+index 0b34e9c..0bb8380 100644
+Binary files a/lib/train/dataset/__pycache__/coco.cpython-310.pyc and b/lib/train/dataset/__pycache__/coco.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/coco_seq.cpython-310.pyc b/lib/train/dataset/__pycache__/coco_seq.cpython-310.pyc
+index db5976d..3472a73 100644
+Binary files a/lib/train/dataset/__pycache__/coco_seq.cpython-310.pyc and b/lib/train/dataset/__pycache__/coco_seq.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/coco_seq_lmdb.cpython-310.pyc b/lib/train/dataset/__pycache__/coco_seq_lmdb.cpython-310.pyc
+index 6d7b28a..3f33c4a 100644
+Binary files a/lib/train/dataset/__pycache__/coco_seq_lmdb.cpython-310.pyc and b/lib/train/dataset/__pycache__/coco_seq_lmdb.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/got10k.cpython-310.pyc b/lib/train/dataset/__pycache__/got10k.cpython-310.pyc
+index 34573e0..c7a5ad1 100644
+Binary files a/lib/train/dataset/__pycache__/got10k.cpython-310.pyc and b/lib/train/dataset/__pycache__/got10k.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/got10k_lmdb.cpython-310.pyc b/lib/train/dataset/__pycache__/got10k_lmdb.cpython-310.pyc
+index 8a93944..5eefdf5 100644
+Binary files a/lib/train/dataset/__pycache__/got10k_lmdb.cpython-310.pyc and b/lib/train/dataset/__pycache__/got10k_lmdb.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/imagenetvid.cpython-310.pyc b/lib/train/dataset/__pycache__/imagenetvid.cpython-310.pyc
+index 0068eff..10ba6aa 100644
+Binary files a/lib/train/dataset/__pycache__/imagenetvid.cpython-310.pyc and b/lib/train/dataset/__pycache__/imagenetvid.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/imagenetvid_lmdb.cpython-310.pyc b/lib/train/dataset/__pycache__/imagenetvid_lmdb.cpython-310.pyc
+index 8d529f6..2af8367 100644
+Binary files a/lib/train/dataset/__pycache__/imagenetvid_lmdb.cpython-310.pyc and b/lib/train/dataset/__pycache__/imagenetvid_lmdb.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/lasot.cpython-310.pyc b/lib/train/dataset/__pycache__/lasot.cpython-310.pyc
+index 345c49e..0a381d2 100644
+Binary files a/lib/train/dataset/__pycache__/lasot.cpython-310.pyc and b/lib/train/dataset/__pycache__/lasot.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/lasot_lmdb.cpython-310.pyc b/lib/train/dataset/__pycache__/lasot_lmdb.cpython-310.pyc
+index 3cc6886..89ea831 100644
+Binary files a/lib/train/dataset/__pycache__/lasot_lmdb.cpython-310.pyc and b/lib/train/dataset/__pycache__/lasot_lmdb.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/tracking_net.cpython-310.pyc b/lib/train/dataset/__pycache__/tracking_net.cpython-310.pyc
+index a72f054..c826045 100644
+Binary files a/lib/train/dataset/__pycache__/tracking_net.cpython-310.pyc and b/lib/train/dataset/__pycache__/tracking_net.cpython-310.pyc differ
+diff --git a/lib/train/dataset/__pycache__/tracking_net_lmdb.cpython-310.pyc b/lib/train/dataset/__pycache__/tracking_net_lmdb.cpython-310.pyc
+index 9255233..34792d5 100644
+Binary files a/lib/train/dataset/__pycache__/tracking_net_lmdb.cpython-310.pyc and b/lib/train/dataset/__pycache__/tracking_net_lmdb.cpython-310.pyc differ
+diff --git a/lib/train/dataset/uav_sot.py b/lib/train/dataset/uav_sot.py
+new file mode 100644
+index 0000000..da220f0
+--- /dev/null
++++ b/lib/train/dataset/uav_sot.py
+@@ -0,0 +1,75 @@
++"""UAV SOT 학습용 데이터셋 (BioDrone train, VisDrone-SOT train).
++
++둘 다 <root>/sequences/<seq>/*.jpg + 시퀀스별 x,y,w,h 텍스트 주석 구조.
++주석이 0,0,0,0 (또는 w/h<=0) 인 프레임은 대상 없음(visible=False).
++"""
++import os
++from collections import OrderedDict
++
++import numpy as np
++import torch
++
++from .base_video_dataset import BaseVideoDataset
++from lib.train.data import jpeg4py_loader
++
++
++class _UAVSeqDataset(BaseVideoDataset):
++    def __init__(self, name, root, anno_fn, frame_sort_key, exclude=None, image_loader=jpeg4py_loader):
++        super().__init__(name, root, image_loader)
++        seq_dir = os.path.join(root, 'sequences')
++        exclude = set(exclude or [])
++        self.sequence_list = sorted(s for s in os.listdir(seq_dir) if s not in exclude)
++        self.anno_fn = anno_fn
++        self.frame_sort_key = frame_sort_key
++        self._frames = {}
++
++    def get_name(self):
++        return self.name
++
++    def has_class_info(self):
++        return False
++
++    def has_occlusion_info(self):
++        return True
++
++    def _frame_list(self, seq):
++        if seq not in self._frames:
++            d = os.path.join(self.root, 'sequences', seq)
++            fs = [f for f in os.listdir(d) if f.endswith('.jpg')]
++            fs.sort(key=self.frame_sort_key)
++            self._frames[seq] = [os.path.join(d, f) for f in fs]
++        return self._frames[seq]
++
++    def get_sequence_info(self, seq_id):
++        seq = self.sequence_list[seq_id]
++        gt = np.loadtxt(self.anno_fn(self.root, seq), delimiter=',', dtype=np.float32).reshape(-1, 4)
++        n = min(len(gt), len(self._frame_list(seq)))
++        bbox = torch.tensor(gt[:n])
++        valid = (bbox[:, 2] > 0) & (bbox[:, 3] > 0)
++        return {'bbox': bbox, 'valid': valid, 'visible': valid.clone().byte()}
++
++    def get_frames(self, seq_id, frame_ids, anno=None):
++        seq = self.sequence_list[seq_id]
++        frames = self._frame_list(seq)
++        frame_list = [self.image_loader(frames[f]) for f in frame_ids]
++        if anno is None:
++            anno = self.get_sequence_info(seq_id)
++        anno_frames = {k: [v[f, ...].clone() for f in frame_ids] for k, v in anno.items()}
++        meta = OrderedDict({'object_class_name': None, 'motion_class': None, 'major_class': None,
++                            'root_class': None, 'motion_adverb': None})
++        return frame_list, anno_frames, meta
++
++
++class BioDroneTrain(_UAVSeqDataset):
++    """BioDrone train 뷰 (sequences/frame_XXX, anno/frame_XXX.txt). exclude: 튜닝 분할 시퀀스."""
++    def __init__(self, root, exclude_dir=None, image_loader=jpeg4py_loader):
++        exclude = os.listdir(os.path.join(exclude_dir, 'sequences')) if exclude_dir else None
++        super().__init__('biodrone_train', root, lambda r, s: os.path.join(r, 'anno', s + '.txt'),
++                         lambda f: int(f[3:-4]), exclude, image_loader)
++
++
++class VisDroneSOTTrain(_UAVSeqDataset):
++    """VisDrone-SOT train (sequences/<seq>/img*.jpg, annotations/<seq>.txt)."""
++    def __init__(self, root, image_loader=jpeg4py_loader):
++        super().__init__('visdrone_sot_train', root, lambda r, s: os.path.join(r, 'annotations', s + '.txt'),
++                         lambda f: int(''.join(c for c in f if c.isdigit())), None, image_loader)
+diff --git a/lib/train/trainers/__pycache__/__init__.cpython-310.pyc b/lib/train/trainers/__pycache__/__init__.cpython-310.pyc
+index 1382530..212034c 100644
+Binary files a/lib/train/trainers/__pycache__/__init__.cpython-310.pyc and b/lib/train/trainers/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/train/trainers/__pycache__/base_trainer.cpython-310.pyc b/lib/train/trainers/__pycache__/base_trainer.cpython-310.pyc
+index 02d8a30..fab567e 100644
+Binary files a/lib/train/trainers/__pycache__/base_trainer.cpython-310.pyc and b/lib/train/trainers/__pycache__/base_trainer.cpython-310.pyc differ
+diff --git a/lib/train/trainers/__pycache__/ltr_trainer.cpython-310.pyc b/lib/train/trainers/__pycache__/ltr_trainer.cpython-310.pyc
+index ecf47f8..d183e0c 100644
+Binary files a/lib/train/trainers/__pycache__/ltr_trainer.cpython-310.pyc and b/lib/train/trainers/__pycache__/ltr_trainer.cpython-310.pyc differ
+diff --git a/lib/train/trainers/base_trainer.py b/lib/train/trainers/base_trainer.py
+index 9d63647..828816f 100644
+--- a/lib/train/trainers/base_trainer.py
++++ b/lib/train/trainers/base_trainer.py
+@@ -191,7 +191,7 @@ class BaseTrainer:
+             raise TypeError
+ 
+         # Load network
+-        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu')
++        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+ 
+         assert net_type == checkpoint_dict['net_type'], 'Network is not of correct type.'
+ 
+@@ -263,7 +263,7 @@ class BaseTrainer:
+ 
+         # Load network
+         print("Loading pretrained model from ", checkpoint_path)
+-        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu')
++        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+ 
+         assert net_type == checkpoint_dict['net_type'], 'Network is not of correct type.'
+ 
+diff --git a/lib/utils/__pycache__/__init__.cpython-310.pyc b/lib/utils/__pycache__/__init__.cpython-310.pyc
+index 4b3397f..57de0dd 100644
+Binary files a/lib/utils/__pycache__/__init__.cpython-310.pyc and b/lib/utils/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/box_ops.cpython-310.pyc b/lib/utils/__pycache__/box_ops.cpython-310.pyc
+index 1e6219c..eff0dfc 100644
+Binary files a/lib/utils/__pycache__/box_ops.cpython-310.pyc and b/lib/utils/__pycache__/box_ops.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/ce_utils.cpython-310.pyc b/lib/utils/__pycache__/ce_utils.cpython-310.pyc
+index 7d15330..c194395 100644
+Binary files a/lib/utils/__pycache__/ce_utils.cpython-310.pyc and b/lib/utils/__pycache__/ce_utils.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/focal_loss.cpython-310.pyc b/lib/utils/__pycache__/focal_loss.cpython-310.pyc
+index e6ad2c9..b964e82 100644
+Binary files a/lib/utils/__pycache__/focal_loss.cpython-310.pyc and b/lib/utils/__pycache__/focal_loss.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/heapmap_utils.cpython-310.pyc b/lib/utils/__pycache__/heapmap_utils.cpython-310.pyc
+index 53ab986..f1e9d42 100644
+Binary files a/lib/utils/__pycache__/heapmap_utils.cpython-310.pyc and b/lib/utils/__pycache__/heapmap_utils.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/lmdb_utils.cpython-310.pyc b/lib/utils/__pycache__/lmdb_utils.cpython-310.pyc
+index f16d913..01e18ef 100644
+Binary files a/lib/utils/__pycache__/lmdb_utils.cpython-310.pyc and b/lib/utils/__pycache__/lmdb_utils.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/merge.cpython-310.pyc b/lib/utils/__pycache__/merge.cpython-310.pyc
+index 6c5454a..d0dacbf 100644
+Binary files a/lib/utils/__pycache__/merge.cpython-310.pyc and b/lib/utils/__pycache__/merge.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/misc.cpython-310.pyc b/lib/utils/__pycache__/misc.cpython-310.pyc
+index 9ddd0ad..487968e 100644
+Binary files a/lib/utils/__pycache__/misc.cpython-310.pyc and b/lib/utils/__pycache__/misc.cpython-310.pyc differ
+diff --git a/lib/utils/__pycache__/tensor.cpython-310.pyc b/lib/utils/__pycache__/tensor.cpython-310.pyc
+index 5ea0230..9cfa5a6 100644
+Binary files a/lib/utils/__pycache__/tensor.cpython-310.pyc and b/lib/utils/__pycache__/tensor.cpython-310.pyc differ
+diff --git a/tracking/profile_model.py b/tracking/profile_model.py
+index 04d9b32..9c63985 100644
+--- a/tracking/profile_model.py
++++ b/tracking/profile_model.py
+@@ -108,7 +108,7 @@ if __name__ == "__main__":
+ 
+     if args.script == "avtrack":
+         model_module = importlib.import_module('lib.models')
+-        model_constructor = model_module.build_ostrack
++        model_constructor = model_module.build_avtrack
+         model = model_constructor(cfg, training=False)
+         # get the template and search
+         template = torch.randn(bs, 3, z_sz, z_sz)

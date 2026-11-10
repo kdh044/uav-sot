@@ -1,0 +1,1908 @@
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_sf3.yaml b/experiments/ortrack/deit_tiny_patch16_224_sf3.yaml
+new file mode 100644
+index 0000000..2d3867c
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_sf3.yaml
+@@ -0,0 +1,76 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++
++  TRAIN:
++    DATASETS_NAME:
++    - LASOT
++    - GOT10K_vottrain
++    - COCO17
++    - TRACKINGNET
++    DATASETS_RATIO:
++    - 1
++    - 1
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 60000
++  VAL:
++    DATASETS_NAME:
++    - GOT10K_votval
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 10000
++MODEL:
++  PRETRAIN_FILE: ""
++  IS_DISTILL: False
++  EXTRA_MERGER: False
++  RETURN_INTER: False
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 300
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 0.0004
++  LR_DROP_EPOCH: 240
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 20
++  WEIGHT_DECAY: 0.0001
++  AMP: False
++TEST:
++  EPOCH: 300
++  SEARCH_FACTOR: 3.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_sf5.yaml b/experiments/ortrack/deit_tiny_patch16_224_sf5.yaml
+new file mode 100644
+index 0000000..1ba720d
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_sf5.yaml
+@@ -0,0 +1,76 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++
++  TRAIN:
++    DATASETS_NAME:
++    - LASOT
++    - GOT10K_vottrain
++    - COCO17
++    - TRACKINGNET
++    DATASETS_RATIO:
++    - 1
++    - 1
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 60000
++  VAL:
++    DATASETS_NAME:
++    - GOT10K_votval
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 10000
++MODEL:
++  PRETRAIN_FILE: ""
++  IS_DISTILL: False
++  EXTRA_MERGER: False
++  RETURN_INTER: False
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 300
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 0.0004
++  LR_DROP_EPOCH: 240
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 20
++  WEIGHT_DECAY: 0.0001
++  AMP: False
++TEST:
++  EPOCH: 300
++  SEARCH_FACTOR: 5.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_sf6.yaml b/experiments/ortrack/deit_tiny_patch16_224_sf6.yaml
+new file mode 100644
+index 0000000..9534600
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_sf6.yaml
+@@ -0,0 +1,76 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++
++  TRAIN:
++    DATASETS_NAME:
++    - LASOT
++    - GOT10K_vottrain
++    - COCO17
++    - TRACKINGNET
++    DATASETS_RATIO:
++    - 1
++    - 1
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 60000
++  VAL:
++    DATASETS_NAME:
++    - GOT10K_votval
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 10000
++MODEL:
++  PRETRAIN_FILE: ""
++  IS_DISTILL: False
++  EXTRA_MERGER: False
++  RETURN_INTER: False
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 300
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 0.0004
++  LR_DROP_EPOCH: 240
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 20
++  WEIGHT_DECAY: 0.0001
++  AMP: False
++TEST:
++  EPOCH: 300
++  SEARCH_FACTOR: 6.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft.yaml
+new file mode 100644
+index 0000000..fe36757
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft.yaml
+@@ -0,0 +1,71 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_ego.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_ego.yaml
+new file mode 100644
+index 0000000..1e87ea5
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_ego.yaml
+@@ -0,0 +1,72 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 4.5
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++    EGO_AUG: true
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_sf5.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_sf5.yaml
+new file mode 100644
+index 0000000..cbb3724
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_sf5.yaml
+@@ -0,0 +1,71 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 5.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 5.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny.yaml
+new file mode 100644
+index 0000000..eb2a325
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny.yaml
+@@ -0,0 +1,73 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    - LATOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny2.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny2.yaml
+new file mode 100644
+index 0000000..8a27740
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_tiny2.yaml
+@@ -0,0 +1,73 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    - LATOT_train
++    DATASETS_RATIO:
++    - 2
++    - 1
++    - 0.5
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_wa5.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_wa5.yaml
+new file mode 100644
+index 0000000..fe36757
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_wa5.yaml
+@@ -0,0 +1,71 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/experiments/ortrack/deit_tiny_patch16_224_uavft_wa7.yaml b/experiments/ortrack/deit_tiny_patch16_224_uavft_wa7.yaml
+new file mode 100644
+index 0000000..fe36757
+--- /dev/null
++++ b/experiments/ortrack/deit_tiny_patch16_224_uavft_wa7.yaml
+@@ -0,0 +1,71 @@
++DATA:
++  MAX_SAMPLE_INTERVAL: 200
++  MEAN:
++  - 0.485
++  - 0.456
++  - 0.406
++  SEARCH:
++    CENTER_JITTER: 3
++    FACTOR: 4.0
++    SCALE_JITTER: 0.25
++    SIZE: 256
++    NUMBER: 1
++  STD:
++  - 0.229
++  - 0.224
++  - 0.225
++  TEMPLATE:
++    CENTER_JITTER: 0
++    FACTOR: 2.0
++    SCALE_JITTER: 0
++    SIZE: 128
++  TRAIN:
++    DATASETS_NAME:
++    - BIODRONE_train
++    - VISDRONE_SOT_train
++    DATASETS_RATIO:
++    - 1
++    - 1
++    SAMPLE_PER_EPOCH: 30000
++  VAL:
++    DATASETS_NAME:
++    - VISDRONE_SOT_val
++    DATASETS_RATIO:
++    - 1
++    SAMPLE_PER_EPOCH: 1000
++MODEL:
++  PRETRAIN_FILE: /home/airlab/user/kdh/SOT/weights/ortrack/ORTrack/Model/deit_tiny_patch16_224/ORTrack_ep0300.pth.tar
++  IS_DISTILL: false
++  EXTRA_MERGER: false
++  RETURN_INTER: false
++  BACKBONE:
++    TYPE: deit_tiny_patch16_224
++    STRIDE: 16
++  HEAD:
++    TYPE: CENTER
++    NUM_CHANNELS: 256
++TRAIN:
++  BACKBONE_MULTIPLIER: 0.1
++  DROP_PATH_RATE: 0.1
++  BATCH_SIZE: 32
++  EPOCH: 20
++  GIOU_WEIGHT: 2.0
++  L1_WEIGHT: 5.0
++  GRAD_CLIP_NORM: 0.1
++  LR: 4.0e-05
++  LR_DROP_EPOCH: 15
++  NUM_WORKER: 10
++  OPTIMIZER: ADAMW
++  PRINT_INTERVAL: 50
++  SCHEDULER:
++    TYPE: step
++    DECAY_RATE: 0.1
++  VAL_EPOCH_INTERVAL: 100
++  WEIGHT_DECAY: 0.0001
++  AMP: false
++TEST:
++  EPOCH: 20
++  SEARCH_FACTOR: 4.0
++  SEARCH_SIZE: 256
++  TEMPLATE_FACTOR: 2.0
++  TEMPLATE_SIZE: 128
+diff --git a/lib/config/ortrack/config.py b/lib/config/ortrack/config.py
+index 741665a..c5386dc 100644
+--- a/lib/config/ortrack/config.py
++++ b/lib/config/ortrack/config.py
+@@ -85,6 +85,7 @@ cfg.DATA.SEARCH.FACTOR = 5.0
+ cfg.DATA.SEARCH.CENTER_JITTER = 4.5
+ cfg.DATA.SEARCH.SCALE_JITTER = 0.5
+ cfg.DATA.SEARCH.NUMBER = 1
++cfg.DATA.SEARCH.EGO_AUG = False  # 검색 crop 회전·모션블러 증강 (UAV ego-motion 모사)
+ # DATA.TEMPLATE
+ cfg.DATA.TEMPLATE = edict()
+ cfg.DATA.TEMPLATE.NUMBER = 1
+diff --git a/lib/models/ortrack/ortrack.py b/lib/models/ortrack/ortrack.py
+index f5ee6ed..795ec06 100644
+--- a/lib/models/ortrack/ortrack.py
++++ b/lib/models/ortrack/ortrack.py
+@@ -262,7 +262,7 @@ def build_ortrack(cfg, training=True):
+     )
+ 
+     if 'ORTrack' in cfg.MODEL.PRETRAIN_FILE and training:
+-        checkpoint = torch.load(cfg.MODEL.PRETRAIN_FILE, map_location="cpu")
++        checkpoint = torch.load(cfg.MODEL.PRETRAIN_FILE, map_location="cpu", weights_only=False)
+         missing_keys, unexpected_keys = model.load_state_dict(checkpoint["net"], strict=False)
+         print('Load pretrained model from: ' + cfg.MODEL.PRETRAIN_FILE)
+ 
+diff --git a/lib/test/evaluation/datasets.py b/lib/test/evaluation/datasets.py
+index 5474429..ec6efc5 100644
+--- a/lib/test/evaluation/datasets.py
++++ b/lib/test/evaluation/datasets.py
+@@ -10,6 +10,9 @@ dataset_dict = dict(
+     otb=DatasetInfo(module=pt % "otb", class_name="OTBDataset", kwargs=dict()),
+     nfs=DatasetInfo(module=pt % "nfs", class_name="NFSDataset", kwargs=dict()),
+     uav123=DatasetInfo(module=pt % "uav123", class_name="UAV123Dataset", kwargs=dict()),
++    uav123_10fps=DatasetInfo(module=pt % "uav123_10fps", class_name="UAV123_10fpsDataset", kwargs=dict()),
++    seadronessee=DatasetInfo(module=pt % "seadronessee", class_name="SeaDronesSeeDataset", kwargs=dict()),
++    satsot=DatasetInfo(module=pt % "satsot", class_name="SatSOTDataset", kwargs=dict()),
+     visdrone2018=DatasetInfo(module=pt % "visdrone2018", class_name="VISDRONE2018Dataset", kwargs=dict()),
+     uavdt=DatasetInfo(module=pt % "uavdt", class_name="UAVDTDataset", kwargs=dict()),
+     biodrone=DatasetInfo(module=pt % "biodrone", class_name="BioDroneDataset", kwargs=dict()),
+diff --git a/lib/test/evaluation/environment.py b/lib/test/evaluation/environment.py
+index 43c597f..6534f2c 100644
+--- a/lib/test/evaluation/environment.py
++++ b/lib/test/evaluation/environment.py
+@@ -13,6 +13,7 @@ class EnvSettings:
+         self.otb_path = ''
+         self.nfs_path = ''
+         self.uav_path = ''
++        self.uav123_10fps_path = ''
+         self.tpl_path = ''
+         self.vot_path = ''
+         self.got10k_path = ''
+diff --git a/lib/test/evaluation/local.py b/lib/test/evaluation/local.py
+new file mode 100644
+index 0000000..6aa6998
+--- /dev/null
++++ b/lib/test/evaluation/local.py
+@@ -0,0 +1,43 @@
++from lib.test.evaluation.environment import EnvSettings
++
++def local_env_settings():
++    settings = EnvSettings()
++
++    # Set your local paths here.
++
++    settings.biodrone_path = __import__('os').environ.get('SOT_BIODRONE', '/home/airlab/user/kdh/datasets/sot/biodrone_val')
++    settings.davis_dir = ''
++    settings.dtb70_path = '/home/airlab/user/kdh/datasets/sot/dtb70'
++    settings.got10k_lmdb_path = '/home/airlab/user/kdh/datasets/sot/got10k_lmdb'
++    settings.got10k_path = '/home/airlab/user/kdh/datasets/sot/got10k'
++    settings.got_packed_results_path = ''
++    settings.got_reports_path = ''
++    settings.itb_path = '/home/airlab/user/kdh/datasets/sot/itb'
++    settings.lasot_extension_subset_path_path = '/home/airlab/user/kdh/datasets/sot/lasot_extension_subset'
++    settings.lasot_lmdb_path = '/home/airlab/user/kdh/datasets/sot/lasot_lmdb'
++    settings.lasot_path = '/home/airlab/user/kdh/datasets/sot/lasot'
++    settings.network_path = '/home/airlab/user/kdh/SOT/ORTrack/output/test/networks'    # Where tracking networks are stored.
++    settings.nfs_path = '/home/airlab/user/kdh/datasets/sot/nfs'
++    settings.otb_path = '/home/airlab/user/kdh/datasets/sot/otb'
++    settings.prj_dir = '/home/airlab/user/kdh/SOT/ORTrack'
++    settings.result_plot_path = '/home/airlab/user/kdh/SOT/ORTrack/output/test/result_plots'
++    settings.results_path = '/home/airlab/user/kdh/SOT/ORTrack/output/test/tracking_results'    # Where to store tracking results
++    settings.save_dir = '/home/airlab/user/kdh/SOT/ORTrack/output'
++    settings.segmentation_path = '/home/airlab/user/kdh/SOT/ORTrack/output/test/segmentation_results'
++    settings.tc128_path = '/home/airlab/user/kdh/datasets/sot/TC128'
++    settings.tn_packed_results_path = ''
++    settings.tnl2k_path = '/home/airlab/user/kdh/datasets/sot/tnl2k'
++    settings.tpl_path = ''
++    settings.trackingnet_path = '/home/airlab/user/kdh/datasets/sot/trackingnet'
++    settings.uav123_path = '/home/airlab/user/kdh/datasets/sot/uav123'
++    settings.uav_path = '/home/airlab/user/kdh/datasets/sot/uav123'
++    settings.uavdt_path = '/home/airlab/user/kdh/datasets/sot/uavdt'
++    settings.visdrone2018_path = '/home/airlab/user/kdh/datasets/sot/visdrone2018'
++    settings.vot18_path = '/home/airlab/user/kdh/datasets/sot/vot2018'
++    settings.vot22_path = '/home/airlab/user/kdh/datasets/sot/vot2022'
++    settings.vot_path = '/home/airlab/user/kdh/datasets/sot/VOT2019'
++    settings.youtubevos_dir = ''
++
++    settings.uav123_10fps_path = '/home/airlab/user/kdh/datasets/sot/uav123/UAV123_10fps'
++    return settings
++
+diff --git a/lib/test/evaluation/satsotdataset.py b/lib/test/evaluation/satsotdataset.py
+new file mode 100644
+index 0000000..8dbaf74
+--- /dev/null
++++ b/lib/test/evaluation/satsotdataset.py
+@@ -0,0 +1,32 @@
++import os
++import numpy as np
++from lib.test.evaluation.data import Sequence, BaseDataset, SequenceList
++
++
++class SatSOTDataset(BaseDataset):
++    """SatSOT (위성 영상 소형 대상 SOT). <seq>/img/*.jpg, <seq>/groundtruth.txt (x,y,w,h; 'none' = 결측 → 0)"""
++
++    def __init__(self):
++        super().__init__()
++        self.base_path = os.environ.get('SOT_SATSOT', '/home/airlab/user/kdh/datasets/sot/satsot/SatSOT')
++        self.sequence_list = sorted(d for d in os.listdir(self.base_path)
++                                    if os.path.isdir(os.path.join(self.base_path, d)))
++
++    def get_sequence_list(self):
++        return SequenceList([self._construct_sequence(s) for s in self.sequence_list])
++
++    def _construct_sequence(self, name):
++        rows = []
++        for line in open(os.path.join(self.base_path, name, 'groundtruth.txt')):
++            line = line.strip()
++            rows.append([0, 0, 0, 0] if (not line or line.lower() == 'none') else [float(v) for v in line.replace('\t', ',').split(',')[:4]])
++        gt = np.array(rows, dtype=np.float64)
++        fd = os.path.join(self.base_path, name, 'img')
++        frames = sorted(os.path.join(fd, f) for f in os.listdir(fd) if f.endswith('.jpg'))
++        n = min(len(frames), len(gt))
++        # 첫 프레임 GT 가 결측이면 첫 유효 프레임부터 시작
++        k = int(np.argmax((gt[:n, 2] > 0) & (gt[:n, 3] > 0)))
++        return Sequence(name, frames[k:n], 'satsot', gt[k:n].reshape(-1, 4))
++
++    def __len__(self):
++        return len(self.sequence_list)
+diff --git a/lib/test/evaluation/seadronesseedataset.py b/lib/test/evaluation/seadronesseedataset.py
+new file mode 100644
+index 0000000..dac899c
+--- /dev/null
++++ b/lib/test/evaluation/seadronesseedataset.py
+@@ -0,0 +1,26 @@
++import json, os
++import numpy as np
++from lib.test.evaluation.data import Sequence, BaseDataset, SequenceList
++
++
++class SeaDronesSeeDataset(BaseDataset):
++    """SeaDronesSee SOT val (해상, 4K). clip json: {clip: {"000267.png": ".../images/val/267.png"}}, GT val_annotations/<clip>.txt"""
++
++    def __init__(self):
++        super().__init__()
++        self.base = '/home/airlab/user/kdh/datasets/sot/seadronessee'
++        self.clips = json.load(open(os.path.join(self.base, 'sot_annotations', 'SeaDronesSee_val.json')))
++        self.sequence_list = sorted(self.clips, key=int)
++
++    def get_sequence_list(self):
++        return SequenceList([self._construct_sequence(s) for s in self.sequence_list])
++
++    def _construct_sequence(self, name):
++        items = sorted(self.clips[name].items())
++        frames = [os.path.join(self.base, 'images', 'val', os.path.basename(p).replace('.png', '.jpg')) for _, p in items]
++        gt = np.loadtxt(os.path.join(self.base, 'sot_annotations', 'val_annotations', f'{name}.txt'), delimiter=',', ndmin=2)
++        n = min(len(frames), len(gt))
++        return Sequence('sds_' + name, frames[:n], 'seadronessee', gt[:n].reshape(-1, 4))
++
++    def __len__(self):
++        return len(self.sequence_list)
+diff --git a/lib/test/evaluation/tracker.py b/lib/test/evaluation/tracker.py
+index 09c81c2..c23ca9c 100644
+--- a/lib/test/evaluation/tracker.py
++++ b/lib/test/evaluation/tracker.py
+@@ -85,6 +85,10 @@ class Tracker:
+         tracker = self.create_tracker(params)
+ 
+         output = self._track_sequence(tracker, seq, init_info)
++        # 실험: 트래커 내부 로그 저장 (env SOT_LOG_DIR, 미설정 시 원본 동작)
++        if os.environ.get('SOT_LOG_DIR') and getattr(tracker, 'ego_log', None):
++            os.makedirs(os.environ['SOT_LOG_DIR'], exist_ok=True)
++            np.save(os.path.join(os.environ['SOT_LOG_DIR'], seq.name + '.npy'), np.array(tracker.ego_log, dtype=np.float64))
+         return output
+ 
+     def _track_sequence(self, tracker, seq, init_info):
+diff --git a/lib/test/evaluation/uav123_10fpsdataset.py b/lib/test/evaluation/uav123_10fpsdataset.py
+new file mode 100644
+index 0000000..0c8ba40
+--- /dev/null
++++ b/lib/test/evaluation/uav123_10fpsdataset.py
+@@ -0,0 +1,198 @@
++import numpy as np
++from lib.test.evaluation.data import Sequence, BaseDataset, SequenceList
++from lib.test.utils.load_text import load_text
++
++
++class UAV123_10fpsDataset(BaseDataset):
++    """ UAV123 dataset.
++    Publication:
++        A Benchmark and Simulator for UAV Tracking.
++        Matthias Mueller, Neil Smith and Bernard Ghanem
++        ECCV, 2016
++        https://ivul.kaust.edu.sa/Documents/Publications/2016/A%20Benchmark%20and%20Simulator%20for%20UAV%20Tracking.pdf
++    Download the dataset from https://ivul.kaust.edu.sa/Pages/pub-benchmark-simulator-uav.aspx
++    """
++
++    def __init__(self):
++        super().__init__()
++        self.base_path = self.env_settings.uav123_10fps_path
++        self.sequence_info_list = self._get_sequence_info_list()
++
++    def get_sequence_list(self):
++        return SequenceList([self._construct_sequence(s) for s in self.sequence_info_list])
++
++    def _construct_sequence(self, sequence_info):
++        sequence_path = sequence_info['path']
++        nz = sequence_info['nz']
++        ext = sequence_info['ext']
++        startFrame = sequence_info['startFrame']
++        endFrame = sequence_info['endFrame']
++
++        init_omit = 0
++        if 'initOmit' in sequence_info:
++            init_omit = sequence_info['initOmit']
++
++        frames = ['{base_path}/{sequence_path}/{frame:0{nz}}.{ext}'.format(base_path=self.base_path,
++                                                                           sequence_path=sequence_path, frame=frame_num,
++                                                                           nz=nz, ext=ext) for frame_num in
++                  range(startFrame + init_omit, endFrame + 1)]
++
++        anno_path = '{}/{}'.format(self.base_path, sequence_info['anno_path'])
++
++        ground_truth_rect = load_text(str(anno_path), delimiter=',', dtype=np.float64, backend='numpy')
++
++        return Sequence(sequence_info['name'], frames, 'uav123_10fps', ground_truth_rect[init_omit:, :],
++                        object_class=sequence_info['object_class'])
++
++    def __len__(self):
++        return len(self.sequence_info_list)
++
++
++    # def _get_sequence_info_list(self):
++    #     sequence_info_list = [
++    #         # {'name': 'person10', 'path': 'data_seq/UAV123_10fps/person10', 'startFrame': 1, 'endFrame': 341},
++    #                 {'name': 'person18', 'path': 'data_seq/UAV123_10fps/person18', 'startFrame': 1, 'endFrame': 465},
++    #     ]
++    #
++    #     for i in sequence_info_list:
++    #         i['nz'] = 6
++    #         i['ext'] = 'jpg'
++    #         i['anno_path'] = 'anno/UAV123_10fps/' + i['name'] + '.txt'
++    #         i['object_class'] = 'cat'
++    #
++    #     return sequence_info_list
++
++    def _get_sequence_info_list(self):
++        # {"name": "uav_bike1", "path": "data_seq/UAV123/bike1", "startFrame": 1, "endFrame": 3085, "nz": 6,"ext": "jpg",
++        # "anno_path": "anno/UAV123/bike1.txt", "object_class": "vehicle"},
++        sequence_info_list = [
++            {'name': 'bike1', 'path': 'data_seq/UAV123_10fps/bike1', 'startFrame': 1, 'endFrame': 1029},
++            {'name': 'bike2', 'path': 'data_seq/UAV123_10fps/bike2', 'startFrame': 1, 'endFrame': 185},
++            {'name': 'bike3', 'path': 'data_seq/UAV123_10fps/bike3', 'startFrame': 1, 'endFrame': 145},
++            {'name': 'bird1_1', 'path': 'data_seq/UAV123_10fps/bird1', 'startFrame': 1, 'endFrame': 85},
++            {'name': 'bird1_2', 'path': 'data_seq/UAV123_10fps/bird1', 'startFrame': 259, 'endFrame': 493},
++            {'name': 'bird1_3', 'path': 'data_seq/UAV123_10fps/bird1', 'startFrame': 525, 'endFrame': 813},
++            {'name': 'boat1', 'path': 'data_seq/UAV123_10fps/boat1', 'startFrame': 1, 'endFrame': 301},
++            {'name': 'boat2', 'path': 'data_seq/UAV123_10fps/boat2', 'startFrame': 1, 'endFrame': 267},
++            {'name': 'boat3', 'path': 'data_seq/UAV123_10fps/boat3', 'startFrame': 1, 'endFrame': 301},
++            {'name': 'boat4', 'path': 'data_seq/UAV123_10fps/boat4', 'startFrame': 1, 'endFrame': 185},
++            {'name': 'boat5', 'path': 'data_seq/UAV123_10fps/boat5', 'startFrame': 1, 'endFrame': 169},
++            {'name': 'boat6', 'path': 'data_seq/UAV123_10fps/boat6', 'startFrame': 1, 'endFrame': 269},
++            {'name': 'boat7', 'path': 'data_seq/UAV123_10fps/boat7', 'startFrame': 1, 'endFrame': 179},
++            {'name': 'boat8', 'path': 'data_seq/UAV123_10fps/boat8', 'startFrame': 1, 'endFrame': 229},
++            {'name': 'boat9', 'path': 'data_seq/UAV123_10fps/boat9', 'startFrame': 1, 'endFrame': 467},
++            {'name': 'building1', 'path': 'data_seq/UAV123_10fps/building1', 'startFrame': 1, 'endFrame': 157},
++            {'name': 'building2', 'path': 'data_seq/UAV123_10fps/building2', 'startFrame': 1, 'endFrame': 193},
++            {'name': 'building3', 'path': 'data_seq/UAV123_10fps/building3', 'startFrame': 1, 'endFrame': 277},
++            {'name': 'building4', 'path': 'data_seq/UAV123_10fps/building4', 'startFrame': 1, 'endFrame': 263},
++            {'name': 'building5', 'path': 'data_seq/UAV123_10fps/building5', 'startFrame': 1, 'endFrame': 161},
++            {'name': 'car1_1', 'path': 'data_seq/UAV123_10fps/car1', 'startFrame': 1, 'endFrame': 251},
++            {'name': 'car1_2', 'path': 'data_seq/UAV123_10fps/car1', 'startFrame': 251, 'endFrame': 543},
++            {'name': 'car1_3', 'path': 'data_seq/UAV123_10fps/car1', 'startFrame': 543, 'endFrame': 877},
++            {'name': 'car2', 'path': 'data_seq/UAV123_10fps/car2', 'startFrame': 1, 'endFrame': 441},
++            {'name': 'car3', 'path': 'data_seq/UAV123_10fps/car3', 'startFrame': 1, 'endFrame': 573},
++            {'name': 'car4', 'path': 'data_seq/UAV123_10fps/car4', 'startFrame': 1, 'endFrame': 449},
++            {'name': 'car5', 'path': 'data_seq/UAV123_10fps/car5', 'startFrame': 1, 'endFrame': 249},
++            {'name': 'car6_1', 'path': 'data_seq/UAV123_10fps/car6', 'startFrame': 1, 'endFrame': 163},
++            {'name': 'car6_2', 'path': 'data_seq/UAV123_10fps/car6', 'startFrame': 163, 'endFrame': 603},
++            {'name': 'car6_3', 'path': 'data_seq/UAV123_10fps/car6', 'startFrame': 603, 'endFrame': 985},
++            {'name': 'car6_4', 'path': 'data_seq/UAV123_10fps/car6', 'startFrame': 985, 'endFrame': 1309},
++            {'name': 'car6_5', 'path': 'data_seq/UAV123_10fps/car6', 'startFrame': 1309, 'endFrame': 1621},
++            {'name': 'car7', 'path': 'data_seq/UAV123_10fps/car7', 'startFrame': 1, 'endFrame': 345},
++            {'name': 'car8_1', 'path': 'data_seq/UAV123_10fps/car8', 'startFrame': 1, 'endFrame': 453},
++            {'name': 'car8_2', 'path': 'data_seq/UAV123_10fps/car8', 'startFrame': 453, 'endFrame': 859},
++            {'name': 'car9', 'path': 'data_seq/UAV123_10fps/car9', 'startFrame': 1, 'endFrame': 627},
++            {'name': 'car10', 'path': 'data_seq/UAV123_10fps/car10', 'startFrame': 1, 'endFrame': 469},
++            {'name': 'car11', 'path': 'data_seq/UAV123_10fps/car11', 'startFrame': 1, 'endFrame': 113},
++            {'name': 'car12', 'path': 'data_seq/UAV123_10fps/car12', 'startFrame': 1, 'endFrame': 167},
++            {'name': 'car13', 'path': 'data_seq/UAV123_10fps/car13', 'startFrame': 1, 'endFrame': 139},
++            {'name': 'car14', 'path': 'data_seq/UAV123_10fps/car14', 'startFrame': 1, 'endFrame': 443},
++            {'name': 'car15', 'path': 'data_seq/UAV123_10fps/car15', 'startFrame': 1, 'endFrame': 157},
++            {'name': 'car16_1', 'path': 'data_seq/UAV123_10fps/car16', 'startFrame': 1, 'endFrame': 139},
++            {'name': 'car16_2', 'path': 'data_seq/UAV123_10fps/car16', 'startFrame': 139, 'endFrame': 665},
++            {'name': 'car17', 'path': 'data_seq/UAV123_10fps/car17', 'startFrame': 1, 'endFrame': 353},
++            {'name': 'car18', 'path': 'data_seq/UAV123_10fps/car18', 'startFrame': 1, 'endFrame': 403},
++            {'name': 'group1_1', 'path': 'data_seq/UAV123_10fps/group1', 'startFrame': 1, 'endFrame': 445},
++            {'name': 'group1_2', 'path': 'data_seq/UAV123_10fps/group1', 'startFrame': 445, 'endFrame': 839},
++            {'name': 'group1_3', 'path': 'data_seq/UAV123_10fps/group1', 'startFrame': 839, 'endFrame': 1309},
++            {'name': 'group1_4', 'path': 'data_seq/UAV123_10fps/group1', 'startFrame': 1309, 'endFrame': 1625},
++            {'name': 'group2_1', 'path': 'data_seq/UAV123_10fps/group2', 'startFrame': 1, 'endFrame': 303},
++            {'name': 'group2_2', 'path': 'data_seq/UAV123_10fps/group2', 'startFrame': 303, 'endFrame': 591},
++            {'name': 'group2_3', 'path': 'data_seq/UAV123_10fps/group2', 'startFrame': 591, 'endFrame': 895},
++            {'name': 'group3_1', 'path': 'data_seq/UAV123_10fps/group3', 'startFrame': 1, 'endFrame': 523},
++            {'name': 'group3_2', 'path': 'data_seq/UAV123_10fps/group3', 'startFrame': 523, 'endFrame': 943},
++            {'name': 'group3_3', 'path': 'data_seq/UAV123_10fps/group3', 'startFrame': 943, 'endFrame': 1457},
++            {'name': 'group3_4', 'path': 'data_seq/UAV123_10fps/group3', 'startFrame': 1457, 'endFrame': 1843},
++            {'name': 'person1', 'path': 'data_seq/UAV123_10fps/person1', 'startFrame': 1, 'endFrame': 267},
++            {'name': 'person2_1', 'path': 'data_seq/UAV123_10fps/person2', 'startFrame': 1, 'endFrame': 397},
++            {'name': 'person2_2', 'path': 'data_seq/UAV123_10fps/person2', 'startFrame': 397, 'endFrame': 875},
++            {'name': 'person3', 'path': 'data_seq/UAV123_10fps/person3', 'startFrame': 1, 'endFrame': 215},
++            {'name': 'person4_1', 'path': 'data_seq/UAV123_10fps/person4', 'startFrame': 1, 'endFrame': 501},
++            {'name': 'person4_2', 'path': 'data_seq/UAV123_10fps/person4', 'startFrame': 501, 'endFrame': 915},
++            {'name': 'person5_1', 'path': 'data_seq/UAV123_10fps/person5', 'startFrame': 1, 'endFrame': 293},
++            {'name': 'person5_2', 'path': 'data_seq/UAV123_10fps/person5', 'startFrame': 293, 'endFrame': 701},
++            {'name': 'person6', 'path': 'data_seq/UAV123_10fps/person6', 'startFrame': 1, 'endFrame': 301},
++            {'name': 'person7_1', 'path': 'data_seq/UAV123_10fps/person7', 'startFrame': 1, 'endFrame': 417},
++            {'name': 'person7_2', 'path': 'data_seq/UAV123_10fps/person7', 'startFrame': 417, 'endFrame': 689},
++            {'name': 'person8_1', 'path': 'data_seq/UAV123_10fps/person8', 'startFrame': 1, 'endFrame': 359},
++            {'name': 'person8_2', 'path': 'data_seq/UAV123_10fps/person8', 'startFrame': 359, 'endFrame': 509},
++            {'name': 'person9', 'path': 'data_seq/UAV123_10fps/person9', 'startFrame': 1, 'endFrame': 221},
++            {'name': 'person10', 'path': 'data_seq/UAV123_10fps/person10', 'startFrame': 1, 'endFrame': 341},
++            {'name': 'person11', 'path': 'data_seq/UAV123_10fps/person11', 'startFrame': 1, 'endFrame': 241},
++            {'name': 'person12_1', 'path': 'data_seq/UAV123_10fps/person12', 'startFrame': 1, 'endFrame': 201},
++            {'name': 'person12_2', 'path': 'data_seq/UAV123_10fps/person12', 'startFrame': 201, 'endFrame': 541},
++            {'name': 'person13', 'path': 'data_seq/UAV123_10fps/person13', 'startFrame': 1, 'endFrame': 295},
++            {'name': 'person14_1', 'path': 'data_seq/UAV123_10fps/person14', 'startFrame': 1, 'endFrame': 283},
++            {'name': 'person14_2', 'path': 'data_seq/UAV123_10fps/person14', 'startFrame': 283, 'endFrame': 605},
++            {'name': 'person14_3', 'path': 'data_seq/UAV123_10fps/person14', 'startFrame': 605, 'endFrame': 975},
++            {'name': 'person15', 'path': 'data_seq/UAV123_10fps/person15', 'startFrame': 1, 'endFrame': 447},
++            {'name': 'person16', 'path': 'data_seq/UAV123_10fps/person16', 'startFrame': 1, 'endFrame': 383},
++            {'name': 'person17_1', 'path': 'data_seq/UAV123_10fps/person17', 'startFrame': 1, 'endFrame': 501},
++            {'name': 'person17_2', 'path': 'data_seq/UAV123_10fps/person17', 'startFrame': 501, 'endFrame': 783},
++            {'name': 'person18', 'path': 'data_seq/UAV123_10fps/person18', 'startFrame': 1, 'endFrame': 465},
++            {'name': 'person19_1', 'path': 'data_seq/UAV123_10fps/person19', 'startFrame': 1, 'endFrame': 415},
++            {'name': 'person19_2', 'path': 'data_seq/UAV123_10fps/person19', 'startFrame': 415, 'endFrame': 931},
++            {'name': 'person19_3', 'path': 'data_seq/UAV123_10fps/person19', 'startFrame': 931, 'endFrame': 1453},
++            {'name': 'person20', 'path': 'data_seq/UAV123_10fps/person20', 'startFrame': 1, 'endFrame': 595},
++            {'name': 'person21', 'path': 'data_seq/UAV123_10fps/person21', 'startFrame': 1, 'endFrame': 163},
++            {'name': 'person22', 'path': 'data_seq/UAV123_10fps/person22', 'startFrame': 1, 'endFrame': 67},
++            {'name': 'person23', 'path': 'data_seq/UAV123_10fps/person23', 'startFrame': 1, 'endFrame': 133},
++            {'name': 'truck1', 'path': 'data_seq/UAV123_10fps/truck1', 'startFrame': 1, 'endFrame': 155},
++            {'name': 'truck2', 'path': 'data_seq/UAV123_10fps/truck2', 'startFrame': 1, 'endFrame': 129},
++            {'name': 'truck3', 'path': 'data_seq/UAV123_10fps/truck3', 'startFrame': 1, 'endFrame': 179},
++            {'name': 'truck4_1', 'path': 'data_seq/UAV123_10fps/truck4', 'startFrame': 1, 'endFrame': 193},
++            {'name': 'truck4_2', 'path': 'data_seq/UAV123_10fps/truck4', 'startFrame': 193, 'endFrame': 421},
++            {'name': 'uav1_1', 'path': 'data_seq/UAV123_10fps/uav1', 'startFrame': 1, 'endFrame': 519},
++            {'name': 'uav1_2', 'path': 'data_seq/UAV123_10fps/uav1', 'startFrame': 519, 'endFrame': 793},
++            {'name': 'uav1_3', 'path': 'data_seq/UAV123_10fps/uav1', 'startFrame': 825, 'endFrame': 1157},
++            {'name': 'uav2', 'path': 'data_seq/UAV123_10fps/uav2', 'startFrame': 1, 'endFrame': 45},
++            {'name': 'uav3', 'path': 'data_seq/UAV123_10fps/uav3', 'startFrame': 1, 'endFrame': 89},
++            {'name': 'uav4', 'path': 'data_seq/UAV123_10fps/uav4', 'startFrame': 1, 'endFrame': 53},
++            {'name': 'uav5', 'path': 'data_seq/UAV123_10fps/uav5', 'startFrame': 1, 'endFrame': 47},
++            {'name': 'uav6', 'path': 'data_seq/UAV123_10fps/uav6', 'startFrame': 1, 'endFrame': 37},
++            {'name': 'uav7', 'path': 'data_seq/UAV123_10fps/uav7', 'startFrame': 1, 'endFrame': 125},
++            {'name': 'uav8', 'path': 'data_seq/UAV123_10fps/uav8', 'startFrame': 1, 'endFrame': 101},
++            {'name': 'wakeboard1', 'path': 'data_seq/UAV123_10fps/wakeboard1', 'startFrame': 1, 'endFrame': 141},
++            {'name': 'wakeboard2', 'path': 'data_seq/UAV123_10fps/wakeboard2', 'startFrame': 1, 'endFrame': 245},
++            {'name': 'wakeboard3', 'path': 'data_seq/UAV123_10fps/wakeboard3', 'startFrame': 1, 'endFrame': 275},
++            {'name': 'wakeboard4', 'path': 'data_seq/UAV123_10fps/wakeboard4', 'startFrame': 1, 'endFrame': 233},
++            {'name': 'wakeboard5', 'path': 'data_seq/UAV123_10fps/wakeboard5', 'startFrame': 1, 'endFrame': 559},
++            {'name': 'wakeboard6', 'path': 'data_seq/UAV123_10fps/wakeboard6', 'startFrame': 1, 'endFrame': 389},
++            {'name': 'wakeboard7', 'path': 'data_seq/UAV123_10fps/wakeboard7', 'startFrame': 1, 'endFrame': 67},
++            {'name': 'wakeboard8', 'path': 'data_seq/UAV123_10fps/wakeboard8', 'startFrame': 1, 'endFrame': 515},
++            {'name': 'wakeboard9', 'path': 'data_seq/UAV123_10fps/wakeboard9', 'startFrame': 1, 'endFrame': 119},
++            {'name': 'wakeboard10', 'path': 'data_seq/UAV123_10fps/wakeboard10', 'startFrame': 1, 'endFrame': 157},
++            {'name': 'car1_s', 'path': 'data_seq/UAV123_10fps/car1_s', 'startFrame': 1, 'endFrame': 492},
++            {'name': 'car2_s', 'path': 'data_seq/UAV123_10fps/car2_s', 'startFrame': 1, 'endFrame': 107},
++            {'name': 'car3_s', 'path': 'data_seq/UAV123_10fps/car3_s', 'startFrame': 1, 'endFrame': 434},
++            {'name': 'car4_s', 'path': 'data_seq/UAV123_10fps/car4_s', 'startFrame': 1, 'endFrame': 277},
++            {'name': 'person1_s', 'path': 'data_seq/UAV123_10fps/person1_s', 'startFrame': 1, 'endFrame': 534},
++            {'name': 'person2_s', 'path': 'data_seq/UAV123_10fps/person2_s', 'startFrame': 1, 'endFrame': 84},
++            {'name': 'person3_s', 'path': 'data_seq/UAV123_10fps/person3_s', 'startFrame': 1, 'endFrame': 169}]
++        for i in sequence_info_list:
++            i['nz'] = 6
++            i['ext'] = 'jpg'
++            i['anno_path'] = 'anno/UAV123_10fps/' + i['name'] + '.txt'
++            i['object_class'] = 'cat'
++
++        return sequence_info_list
+diff --git a/lib/test/tracker/ego_motion.py b/lib/test/tracker/ego_motion.py
+new file mode 100644
+index 0000000..91d5d6b
+--- /dev/null
++++ b/lib/test/tracker/ego_motion.py
+@@ -0,0 +1,47 @@
++"""Ego-motion-aware 추적 보조 함수 (실험용, env 로만 켜짐).
++
++M2: 누적 카메라 회전만큼 검색 영역을 역회전해 잘라 템플릿 방향과 정렬.
++"""
++import math
++import cv2
++import numpy as np
++
++
++def homography_rotation(Hm):
++    """이전→현재 호모그래피의 회전 성분 (rad, 이미지 좌표계 y-down 기준, 반시계 화면 회전이 음수)."""
++    return math.atan2(Hm[1, 0], Hm[0, 0])
++
++
++def rotated_crop(image, box, factor, out_sz, angle):
++    """box(x,y,w,h, 정렬 프레임 크기) 중심으로 한 변 sqrt(w*h)*factor 영역을 angle(rad) 만큼 역회전해 out_sz 로 자름.
++
++    반환: patch(out_sz,out_sz,3), resize_factor, att_mask(1=패딩), M(원본→patch 2x3 affine)
++    """
++    x, y, w, h = box
++    cx, cy = x + w / 2, y + h / 2
++    crop_sz = math.ceil(math.sqrt(w * h) * factor)
++    if crop_sz < 1:
++        raise Exception('Too small bounding box.')
++    scale = out_sz / crop_sz
++    # 카메라가 이미지 내용을 angle 만큼 돌렸으므로, 같은 각도로 getRotationMatrix2D 를 적용하면 상쇄됨
++    M = cv2.getRotationMatrix2D((cx, cy), math.degrees(angle), scale)
++    M[0, 2] += out_sz / 2 - cx
++    M[1, 2] += out_sz / 2 - cy
++    patch = cv2.warpAffine(image, M, (out_sz, out_sz), flags=cv2.INTER_LINEAR,
++                           borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
++    valid = cv2.warpAffine(np.ones(image.shape[:2], np.uint8), M, (out_sz, out_sz),
++                           flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
++    att_mask = (1 - valid).astype(np.float64)
++    return patch, scale, att_mask, M
++
++
++def map_back_rotated(pred_box_crop_px, M, angle):
++    """patch 픽셀 좌표의 (cx,cy,w,h) → 원본 좌표 정렬 프레임 박스(cx,cy,w,h)와 축정렬 외접 박스(x,y,w,h)."""
++    cx, cy, w, h = pred_box_crop_px
++    Minv = cv2.invertAffineTransform(M)
++    ox, oy = Minv @ np.array([cx, cy, 1.0])
++    s = math.hypot(Minv[0, 0], Minv[0, 1])
++    w0, h0 = w * s, h * s
++    c, sn = abs(math.cos(angle)), abs(math.sin(angle))
++    aw, ah = w0 * c + h0 * sn, w0 * sn + h0 * c
++    return (ox, oy, w0, h0), [ox - aw / 2, oy - ah / 2, aw, ah]
+diff --git a/lib/test/tracker/motion_prior.py b/lib/test/tracker/motion_prior.py
+new file mode 100644
+index 0000000..8e1f9b3
+--- /dev/null
++++ b/lib/test/tracker/motion_prior.py
+@@ -0,0 +1,100 @@
++"""검색 영역 중심 사전 예측 (실험용, env SOT_MOTION 으로만 켜짐).
++
++- cmc : 이전→현재 프레임 카메라 움직임을 호모그래피로 추정해 이전 박스 중심을 옮김
++        (축소 회색영상, Shi-Tomasi 코너 + LK optical flow + RANSAC, 대상 박스 주변 마스킹)
++- cv  : 대상의 등속 운동 (카메라 보정 후 좌표계에서 직전 프레임 변위를 그대로 더함)
++- cmc+cv : 둘 다
++"""
++import os
++import cv2
++import numpy as np
++
++
++class MotionPrior:
++    def __init__(self, mode, work_width=640):
++        self.use_cmc = 'cmc' in mode
++        self.use_cv = 'cv' in mode
++        self.work_width = work_width
++        self.prev_gray = None
++        self.scale = 1.0
++        self.vel = np.zeros(2)      # 보정 좌표계에서 대상 중심 속도 (px/frame, 원본 해상도)
++        self.prev_center = None     # 직전 프레임 최종 추정 중심
++        self.cum_angle = 0.0        # 첫 프레임 대비 누적 카메라 회전 (rad)
++        self.H = None
++
++    def _gray(self, image):
++        h, w = image.shape[:2]
++        self.scale = min(1.0, self.work_width / w)
++        g = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
++        if self.scale < 1.0:
++            g = cv2.resize(g, (int(w * self.scale), int(h * self.scale)), interpolation=cv2.INTER_AREA)
++        return g
++
++    def init(self, image, box):
++        self.prev_gray = self._gray(image)
++        self.prev_center = np.array([box[0] + box[2] / 2, box[1] + box[3] / 2])
++        self.vel[:] = 0
++        self.cum_angle = 0.0
++
++    def _homography(self, gray, box):
++        s = self.scale
++        mask = np.full(self.prev_gray.shape, 255, np.uint8)
++        x, y, w, h = [v * s for v in box]
++        cv2.rectangle(mask, (int(x - w), int(y - h)), (int(x + 2 * w), int(y + 2 * h)), 0, -1)
++        # 빠른 모드(env SOT_CMC_FAST=1): 직전 프레임에서 추적된 inlier 점을 재사용, 부족할 때만 재검출
++        fast = bool(os.environ.get('SOT_CMC_FAST'))
++        p0 = None
++        if fast and getattr(self, 'pts', None) is not None and len(self.pts) >= 80:
++            p0 = self.pts
++        if p0 is None:
++            p0 = cv2.goodFeaturesToTrack(self.prev_gray, maxCorners=int(os.environ.get('SOT_CMC_CORNERS', 200 if fast else 400)), qualityLevel=0.01,
++                                         minDistance=8, mask=mask)
++        if p0 is None or len(p0) < 12:
++            self.pts = None
++            return None
++        wv = int(os.environ.get('SOT_CMC_WIN', 15 if fast else 21)); win = (wv, wv)
++        p1, st, _ = cv2.calcOpticalFlowPyrLK(self.prev_gray, gray, p0, None, winSize=win, maxLevel=3)
++        ok = st.ravel() == 1
++        if ok.sum() < 12:
++            self.pts = None
++            return None
++        Hm, inl = cv2.findHomography(p0[ok], p1[ok], cv2.RANSAC, 3.0)
++        if Hm is None or inl.sum() < 10:
++            self.pts = None
++            return None
++        if fast:  # 다음 프레임용: 대상 주변 제외한 inlier 점
++            q = p1[ok][inl.ravel() == 1].reshape(-1, 2)
++            keep = ~((q[:, 0] > x - w) & (q[:, 0] < x + 2 * w) & (q[:, 1] > y - h) & (q[:, 1] < y + 2 * h))
++            self.pts = q[keep].reshape(-1, 1, 2).astype(np.float32)
++        S = np.diag([s, s, 1.0])
++        return np.linalg.inv(S) @ Hm @ S  # 원본 해상도 좌표계
++
++    def predict(self, image, box):
++        """현재 프레임에서 검색할 박스(x,y,w,h) 반환. box 는 직전 프레임 추정."""
++        gray = self._gray(image)
++        H_img, W_img = image.shape[:2]
++        if not np.all(np.isfinite(box)) or box[2] > W_img or box[3] > H_img:  # 박스 폭주 방지
++            box = [box[0], box[1], min(max(box[2], 1), W_img), min(max(box[3], 1), H_img)]
++        c = np.array([box[0] + box[2] / 2, box[1] + box[3] / 2])
++        self.H = None
++        if self.use_cmc:
++            Hm = self._homography(gray, box)
++            if Hm is not None:
++                p = Hm @ np.array([c[0], c[1], 1.0])
++                c = p[:2] / p[2]
++                self.H = Hm
++                self.cum_angle += np.arctan2(Hm[1, 0], Hm[0, 0])
++        if self.use_cv:
++            c = c + self.vel
++        # 퇴화 호모그래피로 중심이 화면 밖 멀리 튀면 화면 안으로 제한 (패딩 폭주 방지)
++        c = np.array([min(max(c[0], 0.0), W_img - 1.0), min(max(c[1], 0.0), H_img - 1.0)])
++        self.prev_gray = gray
++        self.cmc_center = c - (self.vel if self.use_cv else 0)  # 카메라 보정만 한 직전 중심
++        return [c[0] - box[2] / 2, c[1] - box[3] / 2, box[2], box[3]]
++
++    def update(self, new_box):
++        nc = np.array([new_box[0] + new_box[2] / 2, new_box[1] + new_box[3] / 2])
++        if self.use_cv:
++            v = nc - self.cmc_center
++            self.vel = 0.5 * self.vel + 0.5 * v   # 지수평활 속도
++        self.prev_center = nc
+diff --git a/lib/test/tracker/ortrack.py b/lib/test/tracker/ortrack.py
+index 304299d..c5ad01a 100644
+--- a/lib/test/tracker/ortrack.py
++++ b/lib/test/tracker/ortrack.py
+@@ -12,6 +12,8 @@ import cv2
+ import os
+ 
+ from lib.test.tracker.data_utils import Preprocessor
++from lib.test.tracker.motion_prior import MotionPrior
++from lib.test.tracker.ego_motion import rotated_crop, map_back_rotated
+ from lib.utils.box_ops import clip_box
+ from lib.utils.ce_utils import generate_mask_cond
+ 
+@@ -20,7 +22,7 @@ class ORTrack(BaseTracker):
+     def __init__(self, params, dataset_name):
+         super(ORTrack, self).__init__(params)
+         network = build_ortrack(params.cfg, training=False)
+-        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu')['net'], strict=True)
++        network.load_state_dict(torch.load(self.params.checkpoint, map_location='cpu', weights_only=False)['net'], strict=True)
+         self.cfg = params.cfg
+         self.network = network.cuda()
+         # self.network = network.cpu()
+@@ -59,6 +61,7 @@ class ORTrack(BaseTracker):
+         template = self.preprocessor.process(z_patch_arr, z_amask_arr)
+         with torch.no_grad():
+             self.z_dict1 = template
++        self.z_init = template
+ 
+         self.box_mask_z = None
+         if self.cfg.MODEL.BACKBONE.CE_LOC:
+@@ -69,6 +72,16 @@ class ORTrack(BaseTracker):
+         # save states
+         self.state = info['init_bbox']
+         self.frame_id = 0
++        # 실험: 검색 중심 사전 예측 (env SOT_MOTION=cmc|cv|cmc+cv, 미설정 시 원본 동작)
++        mode = os.environ.get('SOT_MOTION')
++        self.motion = MotionPrior(mode, work_width=int(os.environ.get('SOT_CMC_W', '640'))) if mode else None
++        if self.motion:
++            self.motion.init(image, info['init_bbox'])
++        # 실험: M2 회전 정렬 crop (env SOT_ROT=1, SOT_MOTION 에 cmc 필요)
++        self.use_rot = bool(os.environ.get('SOT_ROT')) and self.motion is not None and self.motion.use_cmc
++        self.rot_wh = (info['init_bbox'][2], info['init_bbox'][3])
++        self.ego_log = [] if os.environ.get('SOT_LOG_DIR') else None
++        self.low_cnt = 0
+         if self.save_all_boxes:
+             '''save all predicted boxes'''
+             all_boxes_save = info['init_bbox'] * self.cfg.MODEL.NUM_OBJECT_QUERIES
+@@ -77,8 +90,31 @@ class ORTrack(BaseTracker):
+     def track(self, image, info: dict = None):
+         H, W, _ = image.shape
+         self.frame_id += 1
+-        x_patch_arr, resize_factor, x_amask_arr = sample_target(image, self.state, self.params.search_factor,
+-                                                                output_sz=self.params.search_size)  # (x1, y1, w, h)
++        # 실험: 작은 대상이면 검색 배율 축소 (env SOT_ADAPT_SF="thr_px:factor", 미설정 시 원본 동작)
++        search_factor = self.params.search_factor
++        adapt = os.environ.get('SOT_ADAPT_SF')
++        if adapt:
++            thr, small_sf = map(float, adapt.split(':'))
++            if (self.state[2] * self.state[3]) ** 0.5 < thr:
++                search_factor = small_sf
++        if self.motion:
++            self.state = self.motion.predict(image, self.state)
++        search_center = (self.state[0] + self.state[2] / 2, self.state[1] + self.state[3] / 2)
++        prev_wh, prev_rot_wh = (self.state[2], self.state[3]), self.rot_wh
++        rot_now = self.use_rot
++        if self.use_rot:
++            angle = 0.0 if os.environ.get('SOT_ROT_ZERO') else self.motion.cum_angle * float(os.environ.get('SOT_ROT_SIGN', '1'))
++            # 회전이 작으면 일반 crop 사용 (env SOT_ROT_MIN 도 단위)
++            if abs(math.degrees(angle)) < float(os.environ.get('SOT_ROT_MIN', '0')):
++                rot_now = False
++        if rot_now:
++            w_al, h_al = self.rot_wh
++            box_al = [search_center[0] - w_al / 2, search_center[1] - h_al / 2, w_al, h_al]
++            x_patch_arr, resize_factor, x_amask_arr, rot_M = rotated_crop(image, box_al, search_factor,
++                                                                          self.params.search_size, angle)
++        if not rot_now:
++            x_patch_arr, resize_factor, x_amask_arr = sample_target(image, self.state, search_factor,
++                                                                    output_sz=self.params.search_size)  # (x1, y1, w, h)
+         search = self.preprocessor.process(x_patch_arr, x_amask_arr)
+ 
+         with torch.no_grad():
+@@ -97,7 +133,66 @@ class ORTrack(BaseTracker):
+         pred_box = (pred_boxes.mean(
+             dim=0) * self.params.search_size / resize_factor).tolist()  # (cx, cy, w, h) [0,1]
+         # get the final box result
+-        self.state = clip_box(self.map_box_back(pred_box, resize_factor), H, W, margin=10)
++        if rot_now:
++            crop_px = (pred_boxes.mean(dim=0) * self.params.search_size).tolist()
++            al, aabb = map_back_rotated(crop_px, rot_M, angle)
++            box_mode = os.environ.get('SOT_ROT_BOX')
++            if box_mode == 'keep':  # 위치만 회전 정렬 결과 사용, 크기는 직전 값 유지
++                aabb = [al[0] - prev_wh[0] / 2, al[1] - prev_wh[1] / 2, prev_wh[0], prev_wh[1]]
++            else:
++                self.rot_wh = (al[2], al[3])
++                if box_mode == 'aligned':  # 외접 사각형 대신 정렬 프레임 크기 그대로 출력
++                    aabb = [al[0] - al[2] / 2, al[1] - al[3] / 2, al[2], al[3]]
++            self.state = clip_box(aabb, H, W, margin=10)
++        else:
++            self.state = clip_box(self.map_box_back(pred_box, resize_factor), H, W, margin=10)
++            if self.use_rot:
++                self.rot_wh = (self.state[2], self.state[3])
++        # 실험: M6 템플릿 갱신 (env SOT_TUPD="thr:interval:mode", mode=replace|mix) — 신뢰도 높을 때 최근 모습으로 템플릿 교체
++        tupd = os.environ.get('SOT_TUPD')
++        if tupd:
++            thr, interval, mode = tupd.split(':')
++            if self.frame_id % int(interval) == 0 and float(pred_score_map.max()) >= float(thr):
++                z_arr, _, z_m = sample_target(image, self.state, self.params.template_factor,
++                                              output_sz=self.params.template_size)
++                newz = self.preprocessor.process(z_arr, z_m)
++                if mode == 'mix':  # 첫 템플릿과 평균 (드리프트 완화)
++                    newz.tensors = 0.5 * self.z_init.tensors + 0.5 * newz.tensors
++                self.z_dict1 = newz
++        # 실험: M5 저신뢰 유지 (env SOT_HOLD=thr) — 점수가 thr 미만이면 ViT 출력 대신 예측 위치(CMC)에 머무름
++        hold = os.environ.get('SOT_HOLD')
++        if hold and not self.use_rot and float(pred_score_map.max()) < float(hold):
++            self.state = clip_box([search_center[0] - prev_wh[0] / 2, search_center[1] - prev_wh[1] / 2,
++                                   prev_wh[0], prev_wh[1]], H, W, margin=10)
++        # 실험: M4 놓침 시 재탐색 (env SOT_RESEARCH="thr:k:grid:accept", 예 0.35:2:1:0.5)
++        research = os.environ.get('SOT_RESEARCH')
++        if research and not self.use_rot:
++            thr, k, grid, accept = research.split(':')
++            thr, k, grid, accept = float(thr), int(k), int(grid), float(accept)
++            cur = float(pred_score_map.max())
++            self.low_cnt = self.low_cnt + 1 if cur < thr else 0
++            if self.low_cnt >= k:
++                self.state = self._research(image, search_center, prev_wh, search_factor, grid, accept, cur, H, W)
++        # 실험: 프레임당 크기 변화 제한 (env SOT_SIZE_CLAMP=r, 예 1.2 → [1/1.2, 1.2] 배)
++        clamp = os.environ.get('SOT_SIZE_CLAMP')
++        if clamp:
++            r = float(clamp)
++            cx, cy = self.state[0] + self.state[2] / 2, self.state[1] + self.state[3] / 2
++            nw = min(max(self.state[2], prev_wh[0] / r), prev_wh[0] * r)
++            nh = min(max(self.state[3], prev_wh[1] / r), prev_wh[1] * r)
++            self.state = [cx - nw / 2, cy - nh / 2, nw, nh]
++            if self.use_rot:
++                aw, ah = self.rot_wh
++                self.rot_wh = (min(max(aw, prev_rot_wh[0] / r), prev_rot_wh[0] * r),
++                               min(max(ah, prev_rot_wh[1] / r), prev_rot_wh[1] * r))
++        if self.motion:
++            self.motion.update(self.state)
++        if self.ego_log is not None:
++            oc = (self.state[0] + self.state[2] / 2, self.state[1] + self.state[3] / 2)
++            self.ego_log.append([self.frame_id, search_center[0], search_center[1], oc[0], oc[1],
++                                 float(pred_score_map.max()), float(self.motion is not None and self.motion.H is not None),
++                                 float(self.motion.cum_angle) if self.motion else 0.0,
++                                 self.state[2], self.state[3]])
+ 
+         # for debug
+         if self.debug:
+@@ -135,6 +230,40 @@ class ORTrack(BaseTracker):
+         else:
+             return {"target_bbox": self.state}
+ 
++    def _research(self, image, center, wh, search_factor, grid, accept, cur_score, H, W):
++        """검색 중심 주변 (2*grid+1)^2 위치(한 칸 = 검색영역 한 변)를 배치로 탐색해 가장 높은 점수 후보로 이동."""
++        side = math.sqrt(wh[0] * wh[1]) * search_factor
++        patches, factors, boxes = [], [], []
++        for dy in range(-grid, grid + 1):
++            for dx in range(-grid, grid + 1):
++                if dx == 0 and dy == 0:
++                    continue
++                c = (center[0] + dx * side, center[1] + dy * side)
++                if not (0 <= c[0] < W and 0 <= c[1] < H):
++                    continue
++                b = [c[0] - wh[0] / 2, c[1] - wh[1] / 2, wh[0], wh[1]]
++                p, rf, m = sample_target(image, b, search_factor, output_sz=self.params.search_size)
++                patches.append(self.preprocessor.process(p, m).tensors)
++                factors.append(rf); boxes.append(b)
++        if not patches:
++            return self.state
++        x = torch.cat(patches, 0)
++        z = self.z_dict1.tensors.expand(x.shape[0], -1, -1, -1)
++        with torch.no_grad():
++            out = self.network.forward(template=z, search=x, is_distill=self.is_distill)
++        resp = self.output_window * out['score_map']
++        scores = out['score_map'].flatten(1).max(1).values
++        i = int(scores.argmax())
++        if float(scores[i]) < max(accept, cur_score):
++            return self.state
++        self.low_cnt = 0
++        pb = self.network.box_head.cal_bbox(resp[i:i + 1], out['size_map'][i:i + 1], out['offset_map'][i:i + 1]).view(-1, 4)
++        pb = (pb.mean(0) * self.params.search_size / factors[i]).tolist()
++        cx_prev, cy_prev = boxes[i][0] + 0.5 * boxes[i][2], boxes[i][1] + 0.5 * boxes[i][3]
++        half = 0.5 * self.params.search_size / factors[i]
++        cx, cy, w, h = pb[0] + cx_prev - half, pb[1] + cy_prev - half, pb[2], pb[3]
++        return clip_box([cx - 0.5 * w, cy - 0.5 * h, w, h], H, W, margin=10)
++
+     def map_box_back(self, pred_box: list, resize_factor: float):
+         cx_prev, cy_prev = self.state[0] + 0.5 * self.state[2], self.state[1] + 0.5 * self.state[3]
+         cx, cy, w, h = pred_box
+diff --git a/lib/train/admin/local.py b/lib/train/admin/local.py
+new file mode 100644
+index 0000000..79881d0
+--- /dev/null
++++ b/lib/train/admin/local.py
+@@ -0,0 +1,28 @@
++class EnvironmentSettings:
++    def __init__(self):
++        self.workspace_dir = '/home/airlab/user/kdh/SOT/ORTrack'    # Base directory for saving network checkpoints.
++        self.tensorboard_dir = '/home/airlab/user/kdh/SOT/ORTrack/tensorboard'    # Directory for tensorboard files.
++        self.pretrained_networks = '/home/airlab/user/kdh/SOT/ORTrack/pretrained_networks'
++        self.lasot_dir = '/home/airlab/user/kdh/datasets/sot/lasot'
++        self.got10k_dir = '/home/airlab/user/kdh/datasets/sot/got10k/train'
++        self.got10k_val_dir = '/home/airlab/user/kdh/datasets/sot/got10k/val'
++        self.lasot_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/lasot_lmdb'
++        self.got10k_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/got10k_lmdb'
++        self.trackingnet_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet'
++        self.trackingnet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet_lmdb'
++        self.coco_dir = '/home/airlab/user/kdh/datasets/sot/coco'
++        self.coco_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/coco_lmdb'
++        self.lvis_dir = ''
++        self.sbd_dir = ''
++        self.imagenet_dir = '/home/airlab/user/kdh/datasets/sot/vid'
++        self.imagenet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/vid_lmdb'
++        self.imagenetdet_dir = ''
++        self.ecssd_dir = ''
++        self.hkuis_dir = ''
++        self.msra10k_dir = ''
++        self.davis_dir = ''
++        self.biodrone_train_dir = '/home/airlab/user/kdh/datasets/sot/biodrone_train'
++        self.biodrone_exclude_dir = '/home/airlab/user/kdh/datasets/sot/biodrone_tune'
++        self.visdrone_sot_train_dir = '/home/airlab/user/kdh/datasets/sot/visdrone_sot_trainval/train'
++        self.visdrone_sot_val_dir = '/home/airlab/user/kdh/datasets/sot/visdrone_sot_trainval/val'
++        self.youtubevos_dir = ''
+diff --git a/lib/train/base_functions.py b/lib/train/base_functions.py
+index b581748..e8b1710 100644
+--- a/lib/train/base_functions.py
++++ b/lib/train/base_functions.py
+@@ -2,6 +2,7 @@ import torch
+ from torch.utils.data.distributed import DistributedSampler
+ # datasets related
+ from lib.train.dataset import Lasot, Got10k, MSCOCOSeq, ImagenetVID, TrackingNet
++from lib.train.dataset import BioDroneTrain, VisDroneSOTTrain, LaTOTTrain
+ from lib.train.dataset import Lasot_lmdb, Got10k_lmdb, MSCOCOSeq_lmdb, ImagenetVID_lmdb, TrackingNet_lmdb
+ from lib.train.data import sampler, opencv_loader, processing, LTRLoader
+ import lib.train.data.transforms as tfm
+@@ -29,7 +30,7 @@ def names2datasets(name_list: list, settings, image_loader):
+     datasets = []
+     for name in name_list:
+         assert name in ["LASOT", "GOT10K_vottrain", "GOT10K_votval", "GOT10K_train_full", "GOT10K_official_val",
+-                        "COCO17", "VID", "TRACKINGNET"]
++                        "COCO17", "VID", "TRACKINGNET", "BIODRONE_train", "VISDRONE_SOT_train", "VISDRONE_SOT_val", "LATOT_train"]
+         if name == "LASOT":
+             if settings.use_lmdb:
+                 print("Building lasot dataset from lmdb")
+@@ -78,6 +79,15 @@ def names2datasets(name_list: list, settings, image_loader):
+             else:
+                 # raise ValueError("NOW WE CAN ONLY USE TRACKINGNET FROM LMDB")
+                 datasets.append(TrackingNet(settings.env.trackingnet_dir, image_loader=image_loader))
++        if name == "BIODRONE_train":
++            datasets.append(BioDroneTrain(settings.env.biodrone_train_dir, exclude_dir=settings.env.biodrone_exclude_dir,
++                                          image_loader=image_loader))
++        if name == "VISDRONE_SOT_train":
++            datasets.append(VisDroneSOTTrain(settings.env.visdrone_sot_train_dir, image_loader=image_loader))
++        if name == "VISDRONE_SOT_val":
++            datasets.append(VisDroneSOTTrain(settings.env.visdrone_sot_val_dir, image_loader=image_loader))
++        if name == "LATOT_train":
++            datasets.append(LaTOTTrain('/home/airlab/user/kdh/datasets/sot/latot/LaTOT', image_loader=image_loader))
+     return datasets
+ 
+ 
+@@ -104,7 +114,8 @@ def build_dataloaders(cfg, settings):
+                                                        mode='sequence',
+                                                        transform=transform_train,
+                                                        joint_transform=transform_joint,
+-                                                       settings=settings)
++                                                       settings=settings,
++                                                       ego_aug=getattr(cfg.DATA.SEARCH, "EGO_AUG", False))
+ 
+     data_processing_val = processing.STARKProcessing(search_area_factor=search_area_factor,
+                                                      output_sz=output_sz,
+diff --git a/lib/train/data/loader.py b/lib/train/data/loader.py
+index c70ac5d..aa1345d 100644
+--- a/lib/train/data/loader.py
++++ b/lib/train/data/loader.py
+@@ -2,13 +2,14 @@ import torch
+ import torch.utils.data.dataloader
+ import importlib
+ import collections
+-from torch._six import string_classes
++import collections.abc
++string_classes = str
+ from lib.utils import TensorDict, TensorList
+ 
+ if float(torch.__version__[:3]) >= 1.9 or len('.'.join((torch.__version__).split('.')[0:2])) > 3:
+     int_classes = int
+ else:
+-    from torch._six import int_classes
++    int_classes = int
+ 
+ 
+ def _check_use_shared_memory():
+@@ -57,12 +58,12 @@ def ltr_collate(batch):
+         return batch
+     elif isinstance(batch[0], TensorDict):
+         return TensorDict({key: ltr_collate([d[key] for d in batch]) for key in batch[0]})
+-    elif isinstance(batch[0], collections.Mapping):
++    elif isinstance(batch[0], collections.abc.Mapping):
+         return {key: ltr_collate([d[key] for d in batch]) for key in batch[0]}
+     elif isinstance(batch[0], TensorList):
+         transposed = zip(*batch)
+         return TensorList([ltr_collate(samples) for samples in transposed])
+-    elif isinstance(batch[0], collections.Sequence):
++    elif isinstance(batch[0], collections.abc.Sequence):
+         transposed = zip(*batch)
+         return [ltr_collate(samples) for samples in transposed]
+     elif batch[0] is None:
+@@ -108,12 +109,12 @@ def ltr_collate_stack1(batch):
+         return batch
+     elif isinstance(batch[0], TensorDict):
+         return TensorDict({key: ltr_collate_stack1([d[key] for d in batch]) for key in batch[0]})
+-    elif isinstance(batch[0], collections.Mapping):
++    elif isinstance(batch[0], collections.abc.Mapping):
+         return {key: ltr_collate_stack1([d[key] for d in batch]) for key in batch[0]}
+     elif isinstance(batch[0], TensorList):
+         transposed = zip(*batch)
+         return TensorList([ltr_collate_stack1(samples) for samples in transposed])
+-    elif isinstance(batch[0], collections.Sequence):
++    elif isinstance(batch[0], collections.abc.Sequence):
+         transposed = zip(*batch)
+         return [ltr_collate_stack1(samples) for samples in transposed]
+     elif batch[0] is None:
+diff --git a/lib/train/data/processing.py b/lib/train/data/processing.py
+index 3accc9e..9f5e8bc 100644
+--- a/lib/train/data/processing.py
++++ b/lib/train/data/processing.py
+@@ -1,3 +1,5 @@
++import cv2 as cv
++import numpy as np
+ import torch
+ import torchvision.transforms as transforms
+ from lib.utils import TensorDict
+@@ -46,7 +48,7 @@ class STARKProcessing(BaseProcessing):
+     """
+ 
+     def __init__(self, search_area_factor, output_sz, center_jitter_factor, scale_jitter_factor,
+-                 mode='pair', settings=None, *args, **kwargs):
++                 mode='pair', settings=None, ego_aug=False, *args, **kwargs):
+         """
+         args:
+             search_area_factor - The size of the search region  relative to the target size.
+@@ -65,6 +67,32 @@ class STARKProcessing(BaseProcessing):
+         self.scale_jitter_factor = scale_jitter_factor
+         self.mode = mode
+         self.settings = settings
++        self.ego_aug = ego_aug
++
++    @staticmethod
++    def _ego_motion_aug(crop, box, att):
++        """UAV 기체 흔들림 모사 (검색 crop 전용): 평면 회전 ±30° (p=0.5), 방향성 모션블러 3~9 (p=0.3).
++        box: crop 기준 정규화 (x,y,w,h). att: 1=패딩."""
++        S = crop.shape[0]
++        if np.random.rand() < 0.5:
++            ang = np.random.uniform(-30, 30)
++            M = cv.getRotationMatrix2D(((S - 1) / 2, (S - 1) / 2), ang, 1.0)
++            crop = cv.warpAffine(crop, M, (S, S), flags=cv.INTER_LINEAR, borderMode=cv.BORDER_CONSTANT, borderValue=(0, 0, 0))
++            att_np = att.numpy().astype(np.uint8) if torch.is_tensor(att) else att.astype(np.uint8)
++            att_np = cv.warpAffine(att_np, M, (S, S), flags=cv.INTER_NEAREST, borderMode=cv.BORDER_CONSTANT, borderValue=1)
++            att = torch.from_numpy(att_np.astype(bool)) if torch.is_tensor(att) else att_np.astype(att.dtype)
++            x, y, w, h = (box * S).tolist()
++            pts = np.array([[x, y, 1], [x + w, y, 1], [x, y + h, 1], [x + w, y + h, 1]]) @ M.T
++            x0, y0 = pts.min(0); x1, y1 = pts.max(0)
++            x0, y0, x1, y1 = max(x0, 0), max(y0, 0), min(x1, S), min(y1, S)
++            box = torch.tensor([x0, y0, x1 - x0, y1 - y0], dtype=box.dtype) / S
++        if np.random.rand() < 0.3:
++            k = int(np.random.choice([3, 5, 7, 9]))
++            ker = np.zeros((k, k), np.float32); ker[k // 2, :] = 1.0 / k
++            R = cv.getRotationMatrix2D(((k - 1) / 2, (k - 1) / 2), np.random.uniform(0, 180), 1.0)
++            ker = cv.warpAffine(ker, R, (k, k)); ker /= max(ker.sum(), 1e-6)
++            crop = cv.filter2D(crop, -1, ker)
++        return crop, box, att
+ 
+     def _get_jittered_box(self, box, mode):
+         """ Jitter the input box
+@@ -118,6 +146,12 @@ class STARKProcessing(BaseProcessing):
+             crops, boxes, att_mask, mask_crops = prutils.jittered_center_crop(data[s + '_images'], jittered_anno,
+                                                                               data[s + '_anno'], self.search_area_factor[s],
+                                                                               self.output_sz[s], masks=data[s + '_masks'])
++            if s == 'search' and self.ego_aug:
++                out = [self._ego_motion_aug(c, b, a) for c, b, a in zip(crops, boxes, att_mask)]
++                crops, boxes, att_mask = [o[0] for o in out], [o[1] for o in out], [o[2] for o in out]
++                if any(b[2] <= 0 or b[3] <= 0 for b in boxes):
++                    data['valid'] = False
++                    return data
+             # Apply transforms
+             data[s + '_images'], data[s + '_anno'], data[s + '_att'], data[s + '_masks'] = self.transform[s](
+                 image=crops, bbox=boxes, att=att_mask, mask=mask_crops, joint=False)
+diff --git a/lib/train/dataset/__init__.py b/lib/train/dataset/__init__.py
+index 87ca906..e6950c5 100644
+--- a/lib/train/dataset/__init__.py
++++ b/lib/train/dataset/__init__.py
+@@ -9,3 +9,4 @@ from .lasot_lmdb import Lasot_lmdb
+ from .imagenetvid_lmdb import ImagenetVID_lmdb
+ from .coco_seq_lmdb import MSCOCOSeq_lmdb
+ from .tracking_net_lmdb import TrackingNet_lmdb
++from .uav_sot import BioDroneTrain, VisDroneSOTTrain, LaTOTTrain
+diff --git a/lib/train/dataset/uav_sot.py b/lib/train/dataset/uav_sot.py
+new file mode 100644
+index 0000000..5e0c572
+--- /dev/null
++++ b/lib/train/dataset/uav_sot.py
+@@ -0,0 +1,132 @@
++"""UAV SOT 학습용 데이터셋 (BioDrone train, VisDrone-SOT train).
++
++둘 다 <root>/sequences/<seq>/*.jpg + 시퀀스별 x,y,w,h 텍스트 주석 구조.
++주석이 0,0,0,0 (또는 w/h<=0) 인 프레임은 대상 없음(visible=False).
++"""
++import os
++from collections import OrderedDict
++
++import numpy as np
++import torch
++
++from .base_video_dataset import BaseVideoDataset
++from lib.train.data import jpeg4py_loader
++
++
++class _UAVSeqDataset(BaseVideoDataset):
++    def __init__(self, name, root, anno_fn, frame_sort_key, exclude=None, image_loader=jpeg4py_loader):
++        super().__init__(name, root, image_loader)
++        seq_dir = os.path.join(root, 'sequences')
++        exclude = set(exclude or [])
++        self.sequence_list = sorted(s for s in os.listdir(seq_dir) if s not in exclude)
++        self.anno_fn = anno_fn
++        self.frame_sort_key = frame_sort_key
++        self._frames = {}
++
++    def get_name(self):
++        return self.name
++
++    def has_class_info(self):
++        return False
++
++    def has_occlusion_info(self):
++        return True
++
++    def _frame_list(self, seq):
++        if seq not in self._frames:
++            d = os.path.join(self.root, 'sequences', seq)
++            fs = [f for f in os.listdir(d) if f.endswith('.jpg')]
++            fs.sort(key=self.frame_sort_key)
++            self._frames[seq] = [os.path.join(d, f) for f in fs]
++        return self._frames[seq]
++
++    def get_sequence_info(self, seq_id):
++        seq = self.sequence_list[seq_id]
++        gt = np.loadtxt(self.anno_fn(self.root, seq), delimiter=',', dtype=np.float32).reshape(-1, 4)
++        n = min(len(gt), len(self._frame_list(seq)))
++        bbox = torch.tensor(gt[:n])
++        valid = (bbox[:, 2] > 0) & (bbox[:, 3] > 0)
++        return {'bbox': bbox, 'valid': valid, 'visible': valid.clone().byte()}
++
++    def get_frames(self, seq_id, frame_ids, anno=None):
++        seq = self.sequence_list[seq_id]
++        frames = self._frame_list(seq)
++        frame_list = [self.image_loader(frames[f]) for f in frame_ids]
++        if anno is None:
++            anno = self.get_sequence_info(seq_id)
++        anno_frames = {k: [v[f, ...].clone() for f in frame_ids] for k, v in anno.items()}
++        meta = OrderedDict({'object_class_name': None, 'motion_class': None, 'major_class': None,
++                            'root_class': None, 'motion_adverb': None})
++        return frame_list, anno_frames, meta
++
++
++class BioDroneTrain(_UAVSeqDataset):
++    """BioDrone train 뷰 (sequences/frame_XXX, anno/frame_XXX.txt). exclude: 튜닝 분할 시퀀스."""
++    def __init__(self, root, exclude_dir=None, image_loader=jpeg4py_loader):
++        exclude = os.listdir(os.path.join(exclude_dir, 'sequences')) if exclude_dir else None
++        super().__init__('biodrone_train', root, lambda r, s: os.path.join(r, 'anno', s + '.txt'),
++                         lambda f: int(f[3:-4]), exclude, image_loader)
++
++
++class VisDroneSOTTrain(_UAVSeqDataset):
++    """VisDrone-SOT train (sequences/<seq>/img*.jpg, annotations/<seq>.txt)."""
++    def __init__(self, root, image_loader=jpeg4py_loader):
++        super().__init__('visdrone_sot_train', root, lambda r, s: os.path.join(r, 'annotations', s + '.txt'),
++                         lambda f: int(''.join(c for c in f if c.isdigit())), None, image_loader)
++
++
++class LaTOTTrain(BaseVideoDataset):
++    """LaTOT (소형 대상 추적, 434 시퀀스): <root>/<seq>/img/*.jpg + <root>/<seq>/<seq>.txt (탭/쉼표 x,y,w,h).
++    공식 분할이 없고 평가셋이 아니므로 전부 학습에 사용. '*-deleted' 폴더 제외. 파싱 불가/w,h<=0 는 대상 없음."""
++    def __init__(self, root, image_loader=jpeg4py_loader):
++        super().__init__('latot', root, image_loader)
++        self.sequence_list = sorted(s for s in os.listdir(root)
++                                    if os.path.isdir(os.path.join(root, s)) and not s.endswith('-deleted')
++                                    and os.path.exists(os.path.join(root, s, s + '.txt')))
++        self._frames, self._anno = {}, {}
++
++    def get_name(self):
++        return self.name
++
++    def has_class_info(self):
++        return False
++
++    def has_occlusion_info(self):
++        return True
++
++    def _frame_list(self, seq):
++        if seq not in self._frames:
++            d = os.path.join(self.root, seq, 'img')
++            self._frames[seq] = [os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith('.jpg')]
++        return self._frames[seq]
++
++    def _load_anno(self, seq):
++        if seq not in self._anno:
++            rows = []
++            for line in open(os.path.join(self.root, seq, seq + '.txt')):
++                try:
++                    v = [float(x) for x in line.replace(',', ' ').split()[:4]]
++                    rows.append(v if len(v) == 4 else [0, 0, 0, 0])
++                except ValueError:
++                    rows.append([0, 0, 0, 0])
++            self._anno[seq] = np.array(rows, dtype=np.float32).reshape(-1, 4)
++        return self._anno[seq]
++
++    def get_sequence_info(self, seq_id):
++        seq = self.sequence_list[seq_id]
++        gt = self._load_anno(seq)
++        n = min(len(gt), len(self._frame_list(seq)))
++        bbox = torch.tensor(gt[:n])
++        valid = (bbox[:, 2] > 0) & (bbox[:, 3] > 0)
++        return {'bbox': bbox, 'valid': valid, 'visible': valid.clone().byte()}
++
++    def get_frames(self, seq_id, frame_ids, anno=None):
++        seq = self.sequence_list[seq_id]
++        frames = self._frame_list(seq)
++        frame_list = [self.image_loader(frames[f]) for f in frame_ids]
++        if anno is None:
++            anno = self.get_sequence_info(seq_id)
++        anno_frames = {k: [v[f, ...].clone() for f in frame_ids] for k, v in anno.items()}
++        meta = OrderedDict({'object_class_name': None, 'motion_class': None, 'major_class': None,
++                            'root_class': None, 'motion_adverb': None})
++        return frame_list, anno_frames, meta
+diff --git a/lib/train/train_script.py b/lib/train/train_script.py
+index dfec316..04a42b9 100644
+--- a/lib/train/train_script.py
++++ b/lib/train/train_script.py
+@@ -81,7 +81,8 @@ def run(settings):
+     net.cuda()
+     if settings.local_rank != -1:
+         # net = torch.nn.SyncBatchNorm.convert_sync_batchnorm(net)  # add syncBN converter
+-        net_teacher = DDP(net_teacher, device_ids=[settings.local_rank], find_unused_parameters=True)
++        if cfg.MODEL["IS_DISTILL"]:
++            net_teacher = DDP(net_teacher, device_ids=[settings.local_rank], find_unused_parameters=True)
+         net = DDP(net, device_ids=[settings.local_rank], find_unused_parameters=True)
+         settings.device = torch.device("cuda:%d" % settings.local_rank)
+     else:
+diff --git a/lib/train/trainers/base_trainer.py b/lib/train/trainers/base_trainer.py
+index 9d63647..828816f 100644
+--- a/lib/train/trainers/base_trainer.py
++++ b/lib/train/trainers/base_trainer.py
+@@ -191,7 +191,7 @@ class BaseTrainer:
+             raise TypeError
+ 
+         # Load network
+-        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu')
++        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+ 
+         assert net_type == checkpoint_dict['net_type'], 'Network is not of correct type.'
+ 
+@@ -263,7 +263,7 @@ class BaseTrainer:
+ 
+         # Load network
+         print("Loading pretrained model from ", checkpoint_path)
+-        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu')
++        checkpoint_dict = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+ 
+         assert net_type == checkpoint_dict['net_type'], 'Network is not of correct type.'
+ 

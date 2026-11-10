@@ -1,0 +1,5 @@
+ORTrack https://github.com/wuyou3474/ORTrack.git ede2ed47f566b07f70fd5d81630597e05a54e96f
+AVTrack https://github.com/wuyou3474/AVTrack.git a907c5ff03957255aa4b6c1b55fc21f96c13e0da
+SGLATrack https://github.com/GXNU-ZhongLab/SGLATrack.git 6eb0f977d3a5f6c080b8b2ec89c3e97705384afe
+LETrack https://github.com/GXNU-ZhongLab/LETrack.git 61509ab273090c637703a31f9518e17f59f62c63
+OSTrack https://github.com/botaoye/OSTrack.git 33b5e12586216b7fd0e95d255bd01ba44cbec759

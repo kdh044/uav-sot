@@ -1,0 +1,14 @@
+model,venue,uav123_prec20,uav123_auc,dtb70_prec20,dtb70_auc,uavdt_prec20,uavdt_auc,visdrone2018_prec20,visdrone2018_auc,std4_mean_auc,biodrone_val_prec20,biodrone_val_auc,biodrone_lost_events,biodrone_out_of_roi_pct,std4_lost_events,std4_out_of_roi_pct,gpu_latency_ms,gpu_fps
+ORTrack-DeiT,CVPR25,84.3,66.4,86.1,66.4,83.8,60.3,87.9,66.2,64.8,30.9,26.6,313,45.7,148,10.1,3.25,308
+ORTrack-D,CVPR25,83.8,65.8,83.8,65.2,82.6,59.7,84.9,64.0,63.7,28.8,24.8,304,35.9,166,10.8,2.24,446
+AVTrack-DeiT,ICML24,83.9,66.2,83.8,64.7,82.4,59.0,85.0,64.8,63.7,28.9,24.5,277,41.2,139,13.7,3.11,322
+AVTrack-D,ICML24,82.6,65.0,84.0,65.2,82.9,59.8,84.2,63.9,63.5,29.8,25.4,273,40.7,163,9.8,2.06,485
+SGLATrack,CVPR25,84.9,66.9,84.1,64.9,81.8,59.8,80.5,61.7,63.3,28.5,24.9,313,30.0,169,8.3,2.59,386
+LETrack,CVPR26,84.5,66.4,84.9,65.0,83.5,60.0,83.8,63.4,63.7,32.3,27.5,261,47.1,137,13.1,5.76,174
+OSTrack-256 (ViT-B),ECCV22,87.3,69.0,,,,,,,,34.9,30.9,385,30.4,,,7.2,139
+ORTrack-DeiT +CMC,ours (no retrain),,,,,,,,,,37.1,31.3,200,46.5,,,,
+ORTrack-DeiT +CMC+CV,ours (no retrain),,,,,,,,,,37.7,31.8,208,47.6,,,,
+ORTrack-DeiT +CMC (std),ours (no retrain),84.7,66.8,86.7,67.0,84.4,60.2,85.8,64.6,64.7,37.1,31.3,200,46.5,,,8.04,124
+ORTrack-DeiT drone-FT,ours,84.7,65.1,84.8,63.6,83.0,58.5,84.3,66.3,63.4,32.8,28.2,275,53.1,,,2.97,337
+ORTrack-DeiT drone-FT +CMC (final),ours,83.9,64.6,84.5,63.4,81.5,57.9,84.8,66.8,63.2,41.4,35.3,163,62.6,,,8.04,124
+ORTrack-DeiT +size-adaptive crop,ours (no retrain),86.6,67.1,86.0,66.1,84.0,57.4,88.7,66.1,64.2,29.7,25.5,,,,,,
