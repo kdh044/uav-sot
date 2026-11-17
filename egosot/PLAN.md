@@ -142,3 +142,43 @@ AVTrack-DeiT: base 24.5/277 · CMC 32.4/181 · FT 24.2/245 · FT+CMC 32.7/153 ·
 - Word 초안: paper/draft_icros2027.docx (paper/make_docx.js, A4 2단, XML 검증 통과, 렌더 미확인: soffice 없음)
 - LaTOT 비율 2:1:0.5: tune 37.9 / val 35.0 (실패 170) / SatSOT 37.3 / UAV123 65.2 → 1:1:1(39.2/35.7/38.0/65.7)보다 모두 낮음. tune 순위(UAV만 43.3 > 1:1:1 39.2 > 2:1:0.5 37.9)가 LaTOT 비율과 단조 관계가 아님 → tune 30개 분할 노이즈 큼. 최종 B(1:1:1) 유지
 - UAV123@10fps: 원본 65.3 / +CMC 65.4 / 최종+CMC 65.1, 영역밖 실패 9~11건뿐 → 프레임 간격을 늘려도 UAV123 은 카메라 움직임이 작아 CMC 효과 없음. CMC 이득은 기체 ego-motion 크기에 비례(BioDrone)
+
+## 2026-11-11: 다음 연구 방향을 위한 통제 진단 (학습 없음)
+
+- 원문 검토: `paper/LITERATURE_REVIEW_20261111.md`. 단순 CMC, 가변 검색, 고저층 특징 결합, temporal memory는 직접 겹치는 선행 연구가 있어 신규성으로 단정하지 않음.
+- BioDrone tune 30개, 고정 900개 transition × 10조건 × 원본/기존 FT. 이전 GT crop 및 template oracle이 포함된 진단으로 공식 OPE AUC가 아님. TF32 off, FP32.
+- 같은 clip·같은 4,597 유효 프레임 비교(mIoU, 시퀀스 평균): 원본 free 55.5 / 이전 GT 위치·크기 crop 79.0 / +최근 GT template 82.7. FT 57.5 / 81.3 / 83.4. FT crop oracle +23.9%p, 최근 template 추가 +2.0%p. 실제 배포 개선량이 아님.
+- FT free에서 GT–crop 겹침 없음은 시퀀스 평균 30.0%, GT crop에서는 3.0%. drift 이후 프레임도 포함해 실패 시작 원인 비율과 구분.
+- 회전 대조(공통 760 transition): FT clean 83.6 → search +30° 52.4 mIoU. 중심 적중률@원래 대상크기의 .25는 96.6→95.6%, GT AABB 면적 1.92배/예측면적비 .55. template 동시 회전 이득 +.3%p(CI -1.0~+1.4) → 회전 매칭보다 label/box extent 영향이 커 단순 등변 matching의 근거로 쓰지 않음.
+- source <16px 포함 표본 25개(12 seq), 모델 입력 대상 중앙값 61.9px → 원본 크기와 input token 수를 구분. 이 표본만으로 소형 표현 방법을 확정하지 않음.
+- 산출물: `analysis/matching_20261111/FINDINGS.md`, `REPORT.md`, `ROTATION_REPORT.md`, `ROLLOUT_REPORT.md`, PNG/PDF, 프레임별 JSONL, metadata와 source snapshot.
+- 다음 가설: 실제 예측 오차가 누적되는 상태의 visual tracking 학습. 완전히 crop 밖인 대상에는 관측 범위/재획득 정보도 필요하므로 local loss만으로 해결된다고 주장하지 않음. 새 방법 학습은 아직 하지 않음.
+
+## 2026-11-11: 극소형 대상 독립 진단 (SatSOT / VISO, 학습 없음)
+
+- SatSOT 105 seq + VISO 44 scene에서 scene당 1 tracklet(고정 seed, median size<16 우선). 중간 GT 초기화 최대120f clip. 모델/조건마다 동일 유효17,494f; 공식 OPE AUC가 아님.
+- 핵심 교란요인: 원본 ORTrack/LETrack clip_box(...,margin=10)가 w,h 최소10px를 강제. 원본 파일 git 변경 없음 확인. 경계 clipping을 유지하고 w,h 최소값만1로 바꾼 별도 프로세스 비교.
+- 원본 크기<8px에서 mIoU min10→floor1: ORTrack Sat23.4→40.1 / VISO20.5→39.0; 기존 FT Sat29.0→48.9 / VISO23.2→45.6; LETrack Sat27.2→41.2 / VISO24.1→41.9. 후처리 통제이며 새 알고리즘 기여가 아님.
+- floor1 동일 sampled frame FT: Sat 실제연속53.8 / GT 이전crop64.2 / +최근GT template72.6; VISO54.9 /62.5 /69.7. GT template는 배포 불가능 oracle. 기존 BioDrone만으로 외형/시간 정보의 중요성을 낮게 판단하면 안 됨.
+- LETrack floor1 history유지−매프레임초기화: Sat+.45%p(CI -1.12~+1.95), VISO-.71(CI -2.00~+.53). 추론 ablation이며 no-history 재학습 비교는 아님.
+- 과거1/5/10 GT template 예측 box 단순평균은 최근GT 하나보다 뚜렷한 우위 없음. temporal 학습 전체를 부정하는 결과는 아님.
+- 다음 후보: 최근GT template의 이득과 실제예측 template의 drift 사이 간극을 줄이는 학습. HIPTrack/PATT/KeepTrack/LETrack 대비 신규성 검토 필요.
+- `analysis/tiny_20261111/FINDINGS.md`, `REPORT.md`, `summary.json`, raw JSONL, manifest, source snapshot, 최소박스 비교 사례 PNG/PDF. 기존 SatSOT AUC38.0을 이 진단 수치로 교체하지 않음. 새 학습·기존 코드/가중치 변경·외부 업로드 없음.
+
+
+### 2026-11-11 — 확장 문헌·원문 보관
+
+사용자 요청으로 문헌 목록·분석·원문 자료를 저장. paper/RESEARCH_INDEX_20261111.md 참조. 66편 목록/CSV, 검색 영역 5편 보충, PDF 21개 및 추출 텍스트·출처·해시 보관. 관련 방법 절 확인은 18편이며 전 논문 정독/재현을 뜻하지 않음. GitHub 업로드는 수행하지 않음.
+
+## 2026-11-12: rollout-matched crop 학습 (exposure bias 재현, 기여 아님)
+- `analysis/rollout_train_20261112/README.md`. uavft_tiny+CMC 의 train270 rollout crop 분포(중심 crop 안 50.7%, crop-miss 47.3%)를 bank 로, search crop 50% 를 bank 에서 배치(밖이면 cls 0·박스 loss 제외). Re3(RA-L18)·SLT(ECCV22) 효과 재현.
+- val+CMC AUC: ctl 33.6/34.5 → rm50 38.8/37.6, UAV123 65–67 유지, crop-miss ~50→42–45%. tune+CMC 38.4/33.2 → 39.6/39.5. tune 무CMC 이득 없음(bank 가 CMC rollout 기반).
+- 실패 건수 증가(163/172→186/190)는 재획득 증가 때문: 회복 건 81/88→114/113, 미회복 82/84→72/77, 실패 프레임 30.8k/30.2k→26.6k/27.6k. 실패=IoU0 5f+ 구간 "건수"라 쪼개짐이 많을수록 늘어남 → 이후 실패 프레임·미회복 건수 함께 보고.
+- rm50 = 다음 실험(주변시/중심시)의 기준선.
+
+## 2026-11-12: 실패 원인 분해 (전 데이터셋, uavft_tiny 무CMC, 학습 없음)
+- `analysis/failure_decomp_20261112/README.md`. 실패 = IoU<.1 5f+ (lock IoU≥.5 이후), 시작 프레임의 실제 search crop 대비 OUT/PARTIAL/IN 분류 + 크기·ego(homography)·blur(Laplacian). 극소형은 floor1 주결과. TF32 off, GPU 1개 단일 프로세스.
+- crop 이탈(OUT+PARTIAL) 비율: BioDrone val 73%(CI 64–82, +CMC 61%), tune 76%, BIRDSAI 51%, UAV123 25%, DTB70 17%, UAVDT 9%, VisDrone 0%, SatSOT 17%, SV248S 13%, VISO 17%, LaTOT(학습셋) 21%. SeaDronesSee 7건은 프레임 불연속 의심으로 제외.
+- BioDrone OUT 시작에서 배경 이동 = crop 반폭의 1.14배(기준선 .20) → ego-motion 이 이탈 원인. CMC 후 남은 사건의 74%는 대상 비가시 구간 뒤 재등장.
+- 소형: UAV 데이터에서 <16px 프레임 실패율 10–20배지만 사건의 13–19%뿐. 위성/극소형은 크기 구간별 실패율 평평, 실패는 crop 안 국소 오정합(예측 중심이 대상 1–2배 거리). blur는 어느 데이터에서도 주원인 아님(BioDrone 0.7–0.8배).
+- 함의: 주변시(전체 프레임 저해상도)+중심시 구조는 BioDrone 실패의 61–76%(주로 재획득), 표준 UAV·위성 실패의 ≤25%만 다룸. 나머지는 중심시 분별/정합 문제.
