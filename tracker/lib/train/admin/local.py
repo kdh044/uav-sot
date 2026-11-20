@@ -1,0 +1,28 @@
+class EnvironmentSettings:
+    def __init__(self):
+        self.workspace_dir = '/home/airlab/user/kdh/SOT/ORTrack'    # Base directory for saving network checkpoints.
+        self.tensorboard_dir = '/home/airlab/user/kdh/SOT/ORTrack/tensorboard'    # Directory for tensorboard files.
+        self.pretrained_networks = '/home/airlab/user/kdh/SOT/ORTrack/pretrained_networks'
+        self.lasot_dir = '/home/airlab/user/kdh/datasets/sot/lasot'
+        self.got10k_dir = '/home/airlab/user/kdh/datasets/sot/got10k/train'
+        self.got10k_val_dir = '/home/airlab/user/kdh/datasets/sot/got10k/val'
+        self.lasot_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/lasot_lmdb'
+        self.got10k_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/got10k_lmdb'
+        self.trackingnet_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet'
+        self.trackingnet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/trackingnet_lmdb'
+        self.coco_dir = '/home/airlab/user/kdh/datasets/sot/coco'
+        self.coco_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/coco_lmdb'
+        self.lvis_dir = ''
+        self.sbd_dir = ''
+        self.imagenet_dir = '/home/airlab/user/kdh/datasets/sot/vid'
+        self.imagenet_lmdb_dir = '/home/airlab/user/kdh/datasets/sot/vid_lmdb'
+        self.imagenetdet_dir = ''
+        self.ecssd_dir = ''
+        self.hkuis_dir = ''
+        self.msra10k_dir = ''
+        self.davis_dir = ''
+        self.biodrone_train_dir = '/home/airlab/user/kdh/datasets/sot/train/biodrone_train'
+        self.biodrone_exclude_dir = '/home/airlab/user/kdh/datasets/sot/train/biodrone_tune'
+        self.visdrone_sot_train_dir = '/home/airlab/user/kdh/datasets/sot/train/visdrone_sot_trainval/train'
+        self.visdrone_sot_val_dir = '/home/airlab/user/kdh/datasets/sot/train/visdrone_sot_trainval/val'
+        self.youtubevos_dir = ''
