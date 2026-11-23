@@ -14,53 +14,57 @@
 
 ## 문제
 
-경량 추적기는 무인기 영상에서 세 가지로 실패합니다.
+경량 추적기의 무인기 영상 실패 유형 3가지
 
 | 오추적 | 흔들림 (ROI 이탈) | 작은 표적 |
 |:---:|:---:|:---:|
 | <img src="assets/fail_drift.webp" width="100%"> | <img src="assets/fail_shake.webp" width="100%"> | <img src="assets/fail_tiny.webp" width="100%"> |
-| 비슷한 물체로 넘어가 계속 따라감 | 카메라가 움직이면 표적이 ROI(검색 영역) 밖으로 나가 다시 못 찾음 | 몇 픽셀짜리 표적이 축소 과정에서 사라짐 |
+| 비슷한 물체로 넘어가 계속 추적 | 카메라 움직임으로 표적이 ROI 밖으로 이탈 | 몇 픽셀 표적이 축소 과정에서 소실 |
 
-<sub>초록: 정답 · 빨강: ORTrack · 노랑: ROI(검색 영역)</sub>
+<sub>초록: 정답 · 빨강: ORTrack · 노랑: ROI</sub>
 
-실패가 시작될 때 표적이 이미 ROI 밖에 있던 비율: BioDrone **73%** · BIRDSAI **51%** · UAV123 25%.
-흔들림이 큰 영상일수록 실패 대부분이 ROI 이탈에서 시작합니다.
+- 실패 시작 시 표적이 ROI 밖에 있던 비율: BioDrone **73%** · BIRDSAI **51%** · UAV123 25%
 
 ## 방법
 
-### 1. 흔들림 → ROI를 두 곳에 띄운다
+### 1. 흔들림 → ROI 두 곳 탐색
 
 <p align="center"><img src="assets/method_shake.jpg" width="70%"></p>
 
-카메라가 홱 돌면 표적은 화면에서 반대로 튑니다. 원래 추적기는 **A(직전 위치)**만 보다가 표적(초록)을 놓칩니다.
-우리는 배경이 움직인 만큼 ROI를 옮긴 **B**를 하나 더 띄우고, 둘 중 표적이 더 확실하게 보이는 쪽을 고릅니다.
-카메라 추정이 틀려도 A가 남아 있어서 손해가 없습니다.
+- 직전 위치 ROI $A_t$와 카메라 움직임 $H_{t-1\to t}$만큼 옮긴 ROI $B_t$를 함께 탐색, 점수 $s$가 높은 쪽 선택
 
-### 2. 작은 표적 → 박스를 표적 크기에 맞춘다
+$$A_t = b_{t-1},\qquad B_t = H_{t-1\to t}(b_{t-1}),\qquad b_t = \arg\max_{R\in\{A_t,\,B_t\}} s(R)$$
+
+### 2. 작은 표적 → 박스 최소 크기 완화
 
 <p align="center"><img src="assets/method_tiny.jpg" width="50%"></p>
 
-원래 추적기는 출력 박스를 최소 10px로 고정해서, 6px짜리 차량에도 10px 박스(빨강)를 냅니다. 위치가 맞아도 점수가 깎입니다.
-우리는 첫 프레임 표적 크기까지 박스를 줄일 수 있게 했습니다(파랑). 앞으로 원본 해상도에서 세부 특징을 읽는 갈래도 붙입니다.
+- 출력 박스 최소 크기를 10px 고정에서 첫 프레임 표적 크기로 완화
 
-### 3. 오추적 → "원래 표적인가?"를 따로 묻는다
+$$\min(w_t, h_t) \ge 10 \quad\longrightarrow\quad \min(w_t, h_t) \ge \min\big(10,\ w_0,\ h_0\big)$$
 
-원래 추적기는 점수가 가장 높은 곳을 무조건 표적으로 정하고, 그 모습을 기억합니다. 한 번 비슷한 물체로 넘어가면 돌아오지 못합니다.
-우리는 후보마다 **원래 표적인지 / 없음**을 판단하고, 확실할 때만 기억을 갱신합니다. 표적이 가려지면 엉뚱한 물체 대신 "없음"을 냅니다.
+### 3. 오추적 → 원래 표적 여부 판단
 
-### 교사 학습
+- 후보 $K$개와 "없음" $\varnothing$ 중 선택, 확신도 $q_t$가 높을 때만 기억 $M$ 갱신
 
-"원래 표적인가?"를 판단하는 능력은 SAM3(대형 분할 모델)에게서 배웁니다. SAM3가 표적을 보는 방식(마스크·기억)을 경량 추적기가 따라 하도록 학습하고, 실제 추적 때는 경량 추적기만 씁니다.
+$$\hat k = \arg\max_{k\in\{1,\dots,K,\ \varnothing\}} p_k,\qquad M_t = \begin{cases} \text{update}(M_{t-1}, b_t) & q_t \ge \tau \\ M_{t-1} & \text{otherwise}\end{cases}$$
 
-| | 흔들림 | 작은 표적 | 오추적 + 교사 학습 |
-|---|:---:|:---:|:---:|
-| 상태 | ✅ 적용 | ✅ 박스 크기 적용 · 세부 특징 학습 중 | 학습 중 |
+### 4. 교사 학습 (SAM3 증류)
+
+- SAM3의 마스크·포인터·기억을 경량 추적기가 모방, SAM3가 정답과 맞는 프레임만 사용
+- 추론 시 경량 추적기만 사용
+
+$$\mathcal{L} = \mathcal{L}_{\text{GT}} + \lambda\,\mathbb{1}\big[\text{IoU}(\text{SAM3}, \text{GT}) \ge 0.5\big]\big(\mathcal{L}_{\text{mask}} + \mathcal{L}_{\text{ptr}} + \mathcal{L}_{\text{mem}}\big)$$
+
+| 방법 | 1. 흔들림 | 2. 작은 표적 | 3. 오추적 | 4. 교사 학습 |
+|---|:---:|:---:|:---:|:---:|
+| 상태 | ✅ | ✅ | 학습 중 | 학습 중 |
 
 ## 결과
 
 ### 정량 결과
 
-10종 데이터셋 × 30개 시퀀스, Success AUC (%).
+- 10종 데이터셋 × 30개 시퀀스, Success AUC (%)
 
 <p align="center">
   <img src="assets/datasets.jpg" width="100%">
@@ -84,7 +88,9 @@
   <img src="assets/auc_10datasets.png" width="80%">
 </p>
 
-<sub>+ Ours는 각 추적기의 공식 가중치에 흔들림·작은 표적 방법만 붙인 학습 없는 버전입니다. 두 추적기 모두 평균이 6.8~7.3점 오릅니다. 오추적 방법과 교사 학습은 학습 중입니다. SV248S는 첫 프레임 정답이 없는 2개를 빼고 28개로 계산했습니다.</sub>
+- **+ Ours**: 각 추적기 공식 가중치에 방법 1·2만 적용 (학습 없음), 평균 **+6.8 ~ +7.3**
+
+<sub>SV248S: 첫 프레임 정답 없는 2개 제외, 28개로 계산</sub>
 
 ### 정성 결과
 
@@ -93,4 +99,4 @@
 | ![VETRA](assets/demo_vetra.webp) | ![VISO](assets/demo_viso.webp) |
 | AUC 0.3 → 79.7 | AUC 14.8 → 50.1 |
 
-<sub>초록: 정답 · 빨강: ORTrack · 파랑: Ours. 원본 영상: [BioDrone](assets/demo_biodrone.mp4) · [VETRA](assets/demo_vetra.mp4) · [VISO](assets/demo_viso.mp4)</sub>
+<sub>초록: 정답 · 빨강: ORTrack · 파랑: Ours · 원본 영상: [BioDrone](assets/demo_biodrone.mp4) · [VETRA](assets/demo_vetra.mp4) · [VISO](assets/demo_viso.mp4)</sub>
