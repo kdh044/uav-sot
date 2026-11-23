@@ -1,3 +1,6 @@
+> **KDI Tracker (단일 객체 추적, SOT)** → [`kdi/`](kdi/README.md)
+> 세 가지 문제(놓친 뒤 오추적 · 작은 표적 · 큰 흔들림)를 각각 다루는 구조와 SAM3 지식증류 설계, 통합 val 10종 결과(Look Twice 평균 AUC 48.56 vs ORTrack 41.80 · OSTrack 43.09)를 정리했습니다.
+
 # hailo-drone-mot: Raspberry Pi 5 + Hailo-8 드론 영상 실시간 추적
 
 드론에 실을 수 있는 작은 엣지 보드에서 **항공영상 속 사람과 차량을 실시간(30 FPS 이상)으로 검출하고 추적**하는 프로젝트입니다. 검출은 Hailo-8 NPU에서 RemDet으로, 추적은 Pi의 CPU에서 합니다.
