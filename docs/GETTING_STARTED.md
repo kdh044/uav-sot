@@ -1,6 +1,6 @@
 # 시작하기
 
-## Look Twice
+## Ours (학습 없는 버전)
 
 1. 설치: `pip install -r tracker/requirements.txt`
 2. 가중치: 공식 ORTrack-DeiT `ORTrack_ep0300.pth.tar` → `tracker/output/checkpoints/train/ortrack/deit_tiny_patch16_224/`
@@ -19,7 +19,7 @@ python eval/score_ostrack.py           # AUC 표
 
 | 경로 | 내용 |
 |---|---|
-| `tracker/lib/test/tracker/sm_track.py` | Look Twice (`track_simple`) |
+| `tracker/lib/test/tracker/sm_track.py` | Ours: 두 위치 탐색 + 최소 박스 (`track_simple`) |
 | `tracker/lib/test/tracker/motion_prior.py` | 카메라 움직임 추정 (특징점 흐름 + RANSAC 호모그래피) |
 | `recovery_tracker/student.py` | 학생 추적기 |
 | `recovery_tracker/query_decoder.py` | 오추적 판단 디코더 |
