@@ -36,10 +36,6 @@
 
 **교사 학습**: SAM3를 교사로 두고, 표적을 알아보는 능력을 경량 추적기에 증류합니다. SAM3는 학습 때만 씁니다.
 
-<p align="center">
-  <img src="assets/sam3-kd-structure.png" width="100%">
-</p>
-
 ## 결과
 
 ### 정량 결과
