@@ -18,7 +18,7 @@
 
 | 오추적 | 흔들림 (ROI 이탈) | 작은 표적 |
 |:---:|:---:|:---:|
-| <img src="assets/fail_drift.jpg" width="100%"> | <img src="assets/fail_shake.jpg" width="100%"> | <img src="assets/fail_tiny.jpg" width="100%"> |
+| <img src="assets/fail_drift.webp" width="100%"> | <img src="assets/fail_shake.webp" width="100%"> | <img src="assets/fail_tiny.webp" width="100%"> |
 | 비슷한 물체로 넘어가 계속 따라감 | 카메라가 움직이면 표적이 ROI(검색 영역) 밖으로 나가 다시 못 찾음 | 몇 픽셀짜리 표적이 축소 과정에서 사라짐 |
 
 <sub>초록: 정답 · 빨강: ORTrack · 노랑: ROI(검색 영역)</sub>
