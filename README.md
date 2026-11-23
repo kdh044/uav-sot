@@ -74,13 +74,3 @@
 | AUC 0.3 → 79.7 | AUC 14.8 → 50.1 |
 
 <sub>초록: 정답 · 빨강: ORTrack · 파랑: Ours. 원본 영상: [BioDrone](assets/demo_biodrone.mp4) · [VETRA](assets/demo_vetra.mp4) · [VISO](assets/demo_viso.mp4)</sub>
-
-## 시작하기
-
-```bash
-cd tracker && bash run_looktwice.sh uav123   # 실행 (공식 ORTrack 가중치)
-python eval/make.py                          # 10종 검증셋 만들기
-python eval/score_ostrack.py                 # AUC 표 만들기
-```
-
-설치와 코드 구성: [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)
