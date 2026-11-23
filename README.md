@@ -84,9 +84,3 @@ python eval/score_ostrack.py                 # AUC 표 만들기
 ```
 
 설치와 코드 구성: [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)
-
-## 참고
-
-[ORTrack](https://github.com/wuyou3474/ORTrack)과 [OSTrack](https://github.com/botaoye/OSTrack)을 기반으로 하며,
-교사 모델은 [SAM3](https://github.com/facebookresearch/sam3)입니다.
-이전 Hailo·MOT 작업은 [`archive-hailo-mot`](https://github.com/kdh044/uav-sot/tree/archive-hailo-mot) 브랜치에 있습니다.
